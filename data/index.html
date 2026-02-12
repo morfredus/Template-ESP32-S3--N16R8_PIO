@@ -1,0 +1,85 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="utf-8">
+  <title>Template ESP32-S3</title>
+  <meta name="viewport" content="width=device-width,initial-scale=1">
+  <link rel="stylesheet" href="/style.css">
+</head>
+<body>
+  <header>
+    <h1 id="project-name">Template ESP32-S3</h1>
+    <p id="project-version">Version</p>
+  </header>
+
+  <main>
+    <section class="card">
+      <h2>Projet</h2>
+      <table>
+        <tr><td class="label">Nom</td><td id="proj-name"></td></tr>
+        <tr><td class="label">Version</td><td id="proj-version"></td></tr>
+      </table>
+    </section>
+
+    <section class="card">
+      <h2>Connexion</h2>
+      <table>
+        <tr><td class="label">SSID</td><td id="wifi-ssid"></td></tr>
+        <tr><td class="label">Adresse IP</td><td id="wifi-ip"></td></tr>
+      </table>
+    </section>
+
+    <section class="card">
+      <h2>Carte ESP32-S3</h2>
+      <table>
+        <tr><td class="label">Flash</td><td id="board-flash"></td></tr>
+        <tr><td class="label">PSRAM totale</td><td id="psram-total"></td></tr>
+        <tr><td class="label">PSRAM libre</td><td id="psram-free"></td></tr>
+        <tr><td class="label">Type</td><td id="psram-type"></td></tr>
+        <tr><td class="label">Mode</td><td id="psram-mode"></td></tr>
+        <tr><td class="label">Vitesse</td><td id="psram-speed"></td></tr>
+        <tr><td class="label">Heap libre</td><td id="board-heap"></td></tr>
+        <tr><td class="label">Révision chip</td><td id="board-rev"></td></tr>
+      </table>
+    </section>
+  </main>
+
+  <script>
+    const kb = v => (v / 1024).toFixed(1) + " KB";
+    const mb = v => (v / (1024*1024)).toFixed(1) + " MB";
+
+    async function loadInfo() {
+      try {
+        const res = await fetch('/api/info');
+        if (!res.ok) return;
+        const data = await res.json();
+
+        document.getElementById('proj-name').textContent    = data.project.name;
+        document.getElementById('proj-version').textContent = data.project.version;
+
+        document.getElementById('project-name').textContent    = data.project.name;
+        document.getElementById('project-version').textContent = "Version " + data.project.version;
+
+        document.getElementById('wifi-ssid').textContent = data.wifi.ssid;
+        document.getElementById('wifi-ip').textContent   = data.wifi.ip;
+
+        document.getElementById('psram-total').textContent = kb(data.psram.total);
+        document.getElementById('psram-free').textContent  = kb(data.psram.free);
+        document.getElementById('psram-type').textContent  = data.psram.type;
+        document.getElementById('psram-mode').textContent  = data.psram.mode;
+        document.getElementById('psram-speed').textContent = data.psram.speed;
+
+        document.getElementById('board-flash').textContent = mb(data.board.flash_bytes);
+        document.getElementById('board-heap').textContent  = kb(data.board.heap_free);
+        document.getElementById('board-rev').textContent   = data.board.chip_revision;
+
+      } catch (e) {
+        console.log(e);
+      }
+    }
+
+    loadInfo();
+    setInterval(loadInfo, 5000);
+  </script>
+</body>
+</html>

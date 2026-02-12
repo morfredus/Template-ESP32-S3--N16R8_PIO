@@ -8,11 +8,11 @@ public:
         return inst;
     }
 
-    const std::string& ip() const { return ipAddress; }
     void setIp(const std::string& ip) { ipAddress = ip; }
+    const std::string& ip() const { return ipAddress; }
 
-    const std::string& ssid() const { return connectedSsid; }
     void setSsid(const std::string& s) { connectedSsid = s; }
+    const std::string& ssid() const { return connectedSsid; }
 
 private:
     ConfigState() = default;
