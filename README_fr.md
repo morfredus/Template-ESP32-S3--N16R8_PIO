@@ -1,8 +1,23 @@
-# Template ESP32-S3
+# Template ESP32-S3 - Projet Pédagogique pour Débutants
+
+[![PlatformIO](https://img.shields.io/badge/PlatformIO-ESP32-orange.svg)](https://platformio.org/)
+[![Beginner Friendly](https://img.shields.io/badge/Débutant-Friendly-green.svg)](learning/README.md)
+[![Documentation](https://img.shields.io/badge/Documentation-Complète-blue.svg)](learning/README.md)
+[![C++](https://img.shields.io/badge/C%2B%2B-Explained-red.svg)](learning/03_concepts_cpp.md)
+
+> 🎓 **Template complet avec documentation didactique ligne par ligne**  
+> Parfait pour apprendre le C++, PlatformIO et le développement embarqué sur ESP32
 
 Version minimale valide : **1.0.2**
 
-Ce projet est un template PlatformIO pour ESP32-S3 avec :
+## 🚀 Qu'est-ce que c'est ?
+
+Un template PlatformIO **prêt à l'emploi** pour ESP32-S3 avec **documentation complète pour débutants**. Idéal pour :
+- 📚 **Apprendre le C++** et le développement embarqué
+- 🎯 **Comprendre** comment fonctionne un projet ESP32 professionnel
+- 🛠️ **Démarrer rapidement** vos propres projets IoT
+
+## ✨ Fonctionnalités incluses
 - Connexion Wi-Fi via plusieurs identifiants dans `include/secrets.h`
 - Écrans d’état sur OLED
 - Retour visuel via le NeoPixel intégré
