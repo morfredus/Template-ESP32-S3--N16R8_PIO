@@ -1,3 +1,7 @@
+<p align="center">
+  <img src="logo.svg" width="420" alt="esp32s3-pio-template logo">
+</p>
+
 # ESP32-S3 Template - Educational Project for Beginners
 
 [![PlatformIO](https://img.shields.io/badge/PlatformIO-ESP32-orange.svg)](https://platformio.org/)
@@ -8,7 +12,7 @@
 > 🎓 **Complete template with line-by-line educational documentation**  
 > Perfect for learning C++, PlatformIO, and ESP32 embedded development
 
-Minimum valid version: **1.0.3**
+Minimum valid version: **1.0.7**
 
 ## 🚀 What is this?
 

@@ -1,6 +1,6 @@
 # Démarrage (Débutant)
 
-Version minimale valide : **1.0.3**
+Version minimale valide : **1.0.7**
 
 > 📚 **Vous voulez apprendre en profondeur ?** Consultez la [documentation pédagogique complète](/learning/README_fr.md) qui explique le code ligne par ligne !
 

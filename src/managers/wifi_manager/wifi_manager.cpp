@@ -36,8 +36,12 @@ bool WifiManager::connect() {
 
         if (WiFi.status() == WL_CONNECTED) {
             IPAddress ip = WiFi.localIP();
+            char ipBuffer[16];
+            snprintf(ipBuffer, sizeof(ipBuffer), "%u.%u.%u.%u",
+                     ip[0], ip[1], ip[2], ip[3]);
+
             ConfigState::instance().setSsid(cred.ssid);
-            ConfigState::instance().setIp(WiFi.localIP().toString().c_str());
+            ConfigState::instance().setIp(ipBuffer);
             pixel.set(StatusColor::Connected);
             LOG_INFO("wifi", "Connexion établie au SSID=%s", cred.ssid);
             LOG_INFO("wifi", "Adresse IP: %u.%u.%u.%u", ip[0], ip[1], ip[2], ip[3]);

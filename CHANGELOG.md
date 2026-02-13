@@ -1,6 +1,21 @@
 # Changelog
 
-Minimum valid version: **1.0.3**
+Minimum valid version: **1.0.7**
+
+## [1.0.7] - 2026-02-13
+1. Prefixed OLED version display with "v".
+
+## [1.0.6] - 2026-02-13
+1. Centered SSID label/value and IP line on the OLED.
+2. Truncated SSID/IP strings to fit screen width.
+
+## [1.0.5] - 2026-02-13
+1. Prevented SSID line wrapping to keep the IP label clean on OLED.
+2. Updated documentation minimum version.
+
+## [1.0.4] - 2026-02-13
+1. Routed verbose logs to the serial monitor for USB CDC.
+2. Stored IP using a stable formatted buffer for OLED display.
 
 ## [1.0.3] - 2026-02-13
 1. Added verbose serial logging for startup, Wi-Fi, filesystem, and HTTP.

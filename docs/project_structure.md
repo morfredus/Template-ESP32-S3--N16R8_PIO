@@ -1,6 +1,6 @@
 # Project Structure
 
-Minimum valid version: **1.0.3**
+Minimum valid version: **1.0.7**
 
 > 📚 **Want detailed explanations?** See the [educational documentation](/learning/README.md) for a deep dive into project architecture!
 

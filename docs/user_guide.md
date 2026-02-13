@@ -1,6 +1,6 @@
 # User Guide
 
-Minimum valid version: **1.0.3**
+Minimum valid version: **1.0.7**
 
 > 📚 **New to C++ or ESP32?** Check out the [educational documentation](/learning/README.md) for in-depth explanations!
 

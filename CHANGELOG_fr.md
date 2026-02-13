@@ -1,6 +1,21 @@
 # Journal des modifications
 
-Version minimale valide : **1.0.3**
+Version minimale valide : **1.0.7**
+
+## [1.0.7] - 2026-02-13
+1. Ajout du préfixe "v" devant la version affichée sur l'OLED.
+
+## [1.0.6] - 2026-02-13
+1. Centrage du libellé SSID, du SSID et de la ligne IP sur l'OLED.
+2. Troncature du SSID/IP pour tenir dans la largeur écran.
+
+## [1.0.5] - 2026-02-13
+1. Désactivation du retour à la ligne du SSID pour garder le libellé IP propre sur l'OLED.
+2. Mise à jour de la version minimale dans la documentation.
+
+## [1.0.4] - 2026-02-13
+1. Redirection des logs verbeux vers le moniteur série en USB CDC.
+2. Stockage de l'IP via un buffer formaté stable pour l'affichage OLED.
 
 ## [1.0.3] - 2026-02-13
 1. Ajout de logs série verbeux pour le démarrage, le Wi-Fi, le système de fichiers et HTTP.

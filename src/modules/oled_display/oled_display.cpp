@@ -1,6 +1,7 @@
 #include "oled_display.h"
 
 #include <Wire.h>
+#include <string>
 
 #include "utils/config_state.h"
 #include "utils/project_info.h"
@@ -40,6 +41,7 @@ void OledDisplay::wifiProgress(float progress) {
     display.setCursor(0, 0);
     display.println(ProjectInfo::NAME.data());
     display.setCursor(0, 8);
+    display.print("v");
     display.println(ProjectInfo::VERSION.data());
 
     // Barre de progression
@@ -64,21 +66,43 @@ void OledDisplay::mainScreen() {
     display.clearDisplay();
     display.setTextSize(1);
     display.setTextColor(SSD1306_WHITE);
+    display.setTextWrap(false);
+
+    constexpr size_t CHAR_WIDTH = 6; // police par défaut Adafruit
+    const size_t maxChars = OLED_WIDTH / CHAR_WIDTH;
+    auto truncateText = [maxChars](const std::string& text) {
+        if (text.size() > maxChars) {
+            return text.substr(0, maxChars);
+        }
+        return text;
+    };
+
+    auto centerText = [this, maxChars](int y, const std::string& text) {
+        const size_t len = text.size();
+        const size_t width = (len > maxChars ? maxChars : len) * CHAR_WIDTH;
+        int x = 0;
+        if (OLED_WIDTH > width) {
+            x = static_cast<int>((OLED_WIDTH - width) / 2);
+        }
+        display.setCursor(x, y);
+        display.println(text.c_str());
+    };
 
     // Zone haute : nom + version
     display.setCursor(0, 0);
     display.println(ProjectInfo::NAME.data());
     display.setCursor(0, 8);
+    display.print("v");
     display.println(ProjectInfo::VERSION.data());
 
-    // Zone basse : SSID + IP
-    display.setCursor(0, 24);
-    display.print("SSID: ");
-    display.println(ConfigState::instance().ssid().c_str());
+    // Zone basse : SSID + IP (centrés)
+    const std::string ssid = truncateText(ConfigState::instance().ssid());
+    const std::string ipLine = truncateText(std::string("IP: ") +
+                                           ConfigState::instance().ip());
 
-    display.setCursor(0, 36);
-    display.print("IP: ");
-    display.println(ConfigState::instance().ip().c_str());
+    centerText(24, "SSID:");
+    centerText(34, ssid);
+    centerText(46, ipLine);
 
     display.display();
 }

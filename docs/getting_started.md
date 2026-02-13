@@ -1,6 +1,6 @@
 # Getting Started (Beginner)
 
-Minimum valid version: **1.0.3**
+Minimum valid version: **1.0.7**
 
 > 📚 **Want to learn in depth?** Check out the comprehensive [educational documentation](/learning/README.md) that explains the code line by line!
 
