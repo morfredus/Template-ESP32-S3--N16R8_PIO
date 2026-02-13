@@ -32,3 +32,19 @@ This project is a PlatformIO template for ESP32-S3 with:
 - User guide: `docs/user_guide.md`
 - Architecture and tree: `docs/project_structure.md`
 - French versions are available with `_fr.md` suffix.
+
+### 📚 Educational documentation (C++ learning)
+
+For beginners who want to **deeply understand** how the code works and grasp C++ concepts, comprehensive French documentation is available in the `learning/` folder:
+
+- **Complete guide**: [`learning/README.md`](learning/README.md) - Entry point with navigation
+- Introduction to C++: [`learning/00_introduction_cpp.md`](learning/00_introduction_cpp.md)
+- Project structure: [`learning/01_structure_du_projet.md`](learning/01_structure_du_projet.md)
+- Detailed modules: [`learning/02_modules_et_leur_role.md`](learning/02_modules_et_leur_role.md)
+- C++ concepts: [`learning/03_concepts_cpp.md`](learning/03_concepts_cpp.md)
+- main.cpp analysis: [`learning/04_main_explique.md`](learning/04_main_explique.md)
+- Configuration: [`learning/05_configuration.md`](learning/05_configuration.md)
+
+This documentation explains the code **line by line**, technical choices, and concepts used, with analogies and concrete examples.
+
+**Note**: Documentation is currently available in French only.
