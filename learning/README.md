@@ -18,7 +18,7 @@ If you're discovering C++ and embedded projects, follow this order:
    - Basic concepts (.h, .cpp files, includes, classes)
    - ESP32 program lifecycle (`setup()` and `loop()`)
 
-2. **[01_structure_du_projet.md](./01_structure_du_projet.md)**
+2. **[01_project_structure.md](./01_project_structure.md)**
    - Folder organization (`src/`, `include/`, `data/`, etc.)
    - Role of each folder
    - Difference between modules, managers, and utils
@@ -34,14 +34,14 @@ If you're discovering C++ and embedded projects, follow this order:
    - Singleton pattern
    - And much more!
 
-4. **[02_modules_et_leur_role.md](./02_modules_et_leur_role.md)**
+4. **[02_modules_and_their_role.md](./02_modules_and_their_role.md)**
    - NeoPixelStatus (RGB LED)
    - OledDisplay (OLED screen)
    - PsramInfo (PSRAM memory)
    - WifiManager (WiFi connection)
    - Line-by-line code explanation for each module
 
-5. **[04_main_explique.md](./04_main_explique.md)**
+5. **[04_main_explained.md](./04_main_explained.md)**
    - Complete analysis of `main.cpp`
    - Line-by-line explanation of `setup()` and `loop()`
    - How modules are used together
@@ -62,9 +62,9 @@ If you already know C++ and are looking for specific information:
 
 | I want to understand... | Read this file |
 |------------------------|----------------|
-| Overall organization | [01_structure_du_projet.md](./01_structure_du_projet.md) |
-| A specific module | [02_modules_et_leur_role.md](./02_modules_et_leur_role.md) |
-| The main.cpp file | [04_main_explique.md](./04_main_explique.md) |
+| Overall organization | [01_project_structure.md](./01_project_structure.md) |
+| A specific module | [02_modules_and_their_role.md](./02_modules_and_their_role.md) |
+| The main.cpp file | [04_main_explained.md](./04_main_explained.md) |
 | Config files | [05_configuration.md](./05_configuration.md) |
 | A specific C++ concept | [03_concepts_cpp.md](./03_concepts_cpp.md) |
 
@@ -73,14 +73,14 @@ If you already know C++ and are looking for specific information:
 ### 🔍 Search by Theme
 
 #### 📦 Architecture and Organization
-- Folder structure → [01_structure_du_projet.md](./01_structure_du_projet.md)
-- Modules/managers/utils difference → [01_structure_du_projet.md](./01_structure_du_projet.md)
+- Folder structure → [01_project_structure.md](./01_project_structure.md)
+- Modules/managers/utils difference → [01_project_structure.md](./01_project_structure.md)
 
 #### 🧩 Hardware Modules
-- NeoPixel LED → [02_modules_et_leur_role.md](./02_modules_et_leur_role.md)
-- OLED Screen → [02_modules_et_leur_role.md](./02_modules_et_leur_role.md)
-- PSRAM Memory → [02_modules_et_leur_role.md](./02_modules_et_leur_role.md)
-- WiFi Connection → [02_modules_et_leur_role.md](./02_modules_et_leur_role.md)
+- NeoPixel LED → [02_modules_and_their_role.md](./02_modules_and_their_role.md)
+- OLED Screen → [02_modules_and_their_role.md](./02_modules_and_their_role.md)
+- PSRAM Memory → [02_modules_and_their_role.md](./02_modules_and_their_role.md)
+- WiFi Connection → [02_modules_and_their_role.md](./02_modules_and_their_role.md)
 
 #### 💻 C++ Concepts
 - Classes and objects → [03_concepts_cpp.md](./03_concepts_cpp.md)
@@ -96,10 +96,10 @@ If you already know C++ and are looking for specific information:
 - Name and version → [05_configuration.md](./05_configuration.md)
 
 #### 🔧 Main Code
-- setup() function → [04_main_explique.md](./04_main_explique.md)
-- loop() function → [04_main_explique.md](./04_main_explique.md)
-- JSON building → [04_main_explique.md](./04_main_explique.md)
-- Web server → [04_main_explique.md](./04_main_explique.md)
+- setup() function → [04_main_explained.md](./04_main_explained.md)
+- loop() function → [04_main_explained.md](./04_main_explained.md)
+- JSON building → [04_main_explained.md](./04_main_explained.md)
+- Web server → [04_main_explained.md](./04_main_explained.md)
 
 ---
 
@@ -108,10 +108,10 @@ If you already know C++ and are looking for specific information:
 | # | File | Description |
 |---|------|-------------|
 | 0 | [00_introduction_cpp.md](./00_introduction_cpp.md) | Introduction to C++ and the project |
-| 1 | [01_structure_du_projet.md](./01_structure_du_projet.md) | Folder and file organization |
-| 2 | [02_modules_et_leur_role.md](./02_modules_et_leur_role.md) | Detail of each module (LED, screen, WiFi, etc.) |
+| 1 | [01_project_structure.md](./01_project_structure.md) | Folder and file organization |
+| 2 | [02_modules_and_their_role.md](./02_modules_and_their_role.md) | Detail of each module (LED, screen, WiFi, etc.) |
 | 3 | [03_concepts_cpp.md](./03_concepts_cpp.md) | C++ concepts used (classes, references, etc.) |
-| 4 | [04_main_explique.md](./04_main_explique.md) | Line-by-line analysis of main.cpp |
+| 4 | [04_main_explained.md](./04_main_explained.md) | Line-by-line analysis of main.cpp |
 | 5 | [05_configuration.md](./05_configuration.md) | Detailed configuration files |
 
 ---
@@ -163,9 +163,9 @@ All code snippets are:
 
 ### To Add a Feature
 
-1. Understand the architecture → [01_structure_du_projet.md](./01_structure_du_projet.md)
+1. Understand the architecture → [01_project_structure.md](./01_project_structure.md)
 2. Identify where to place the code (module/manager/utils)
-3. Get inspired by existing modules → [02_modules_et_leur_role.md](./02_modules_et_leur_role.md)
+3. Get inspired by existing modules → [02_modules_and_their_role.md](./02_modules_and_their_role.md)
 4. Follow project conventions
 
 ---
@@ -178,10 +178,10 @@ Each document refers to **real files** in the project:
 Educational Documentation    ←→  Source Code
 ─────────────────────────────────────────────────
 00_introduction_cpp.md    ←→  (general concepts)
-01_structure_du_projet.md ←→  (all folders)
-02_modules_et_leur_role.md ←→  src/modules/*, src/managers/*
+01_project_structure.md ←→  (all folders)
+02_modules_and_their_role.md ←→  src/modules/*, src/managers/*
 03_concepts_cpp.md        ←→ (patterns used everywhere)
-04_main_explique.md       ←→  src/main.cpp
+04_main_explained.md       ←→  src/main.cpp
 05_configuration.md       ←→  include/*.h, src/utils/*
 ```
 
