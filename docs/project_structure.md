@@ -1,6 +1,6 @@
 # Project Structure
 
-Minimum valid version: **1.0.2**
+Minimum valid version: **1.0.3**
 
 > 📚 **Want detailed explanations?** See the [educational documentation](/learning/README.md) for a deep dive into project architecture!
 
@@ -14,6 +14,7 @@ Minimum valid version: **1.0.2**
   - `wifi_manager/`
 - `src/utils/`
   - shared config/state/project headers
+  - logging helpers (`logging.h`, `logging.cpp`)
 - `include/`
   - protected configuration files only
 - `data/`

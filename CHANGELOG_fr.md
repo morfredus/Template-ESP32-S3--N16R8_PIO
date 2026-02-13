@@ -1,6 +1,10 @@
 # Journal des modifications
 
-Version minimale valide : **1.0.2**
+Version minimale valide : **1.0.3**
+
+## [1.0.3] - 2026-02-13
+1. Ajout de logs série verbeux pour le démarrage, le Wi-Fi, le système de fichiers et HTTP.
+2. Documentation mise à jour pour les logs verbeux et la structure du projet.
 
 ## [1.0.2] - 2026-02-13
 1. Correction du nom de fichier protégé en snake_case strict : `include/secrets_example.h`.

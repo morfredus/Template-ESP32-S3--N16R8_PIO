@@ -8,7 +8,7 @@
 > 🎓 **Complete template with line-by-line educational documentation**  
 > Perfect for learning C++, PlatformIO, and ESP32 embedded development
 
-Minimum valid version: **1.0.2**
+Minimum valid version: **1.0.3**
 
 ## 🚀 What is this?
 
@@ -21,6 +21,7 @@ A **ready-to-use** PlatformIO template for ESP32-S3 with **comprehensive beginne
 - Wi-Fi connection using multiple credentials from `include/secrets.h`
 - OLED display status screens
 - Onboard NeoPixel status feedback
+- Verbose serial logs for learning and diagnostics
 - LittleFS static web server (`data/index.html`, `data/style.css`)
 - Runtime info API at `/api/info`
 

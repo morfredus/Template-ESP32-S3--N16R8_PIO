@@ -1,6 +1,6 @@
 # Démarrage (Débutant)
 
-Version minimale valide : **1.0.2**
+Version minimale valide : **1.0.3**
 
 > 📚 **Vous voulez apprendre en profondeur ?** Consultez la [documentation pédagogique complète](/learning/README_fr.md) qui explique le code ligne par ligne !
 
@@ -29,5 +29,6 @@ Version minimale valide : **1.0.2**
 ## 6) Vérifier le comportement attendu
 - Le NeoPixel indique l’état (scan/connexion/erreur/succès)
 - L’OLED affiche le splash, la progression puis les infos Wi-Fi
+- Le moniteur série affiche des logs verbeux (tentatives Wi-Fi, IP, HTTP prêt)
 - L’interface web est chargée depuis LittleFS
 - L’endpoint JSON runtime est disponible sur `/api/info`

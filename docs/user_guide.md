@@ -1,6 +1,6 @@
 # User Guide
 
-Minimum valid version: **1.0.2**
+Minimum valid version: **1.0.3**
 
 > 📚 **New to C++ or ESP32?** Check out the [educational documentation](/learning/README.md) for in-depth explanations!
 
@@ -8,6 +8,7 @@ Minimum valid version: **1.0.2**
 - Multi-credential Wi-Fi connection attempts
 - OLED display feedback for startup and connectivity
 - NeoPixel status indicator
+- Verbose serial logs for learning and troubleshooting
 - Embedded web UI served from LittleFS
 - Device information API at `/api/info`
 
@@ -29,4 +30,5 @@ Minimum valid version: **1.0.2**
 ## Troubleshooting
 - If upload works but web content is old, rebuild/upload LittleFS.
 - If Wi-Fi fails, verify credentials and network availability.
+- If behavior is unclear, use the serial monitor to read verbose logs (Wi-Fi attempts, IP, and HTTP readiness).
 - If OLED stays blank, verify board wiring/pins in `include/board_config.h`.

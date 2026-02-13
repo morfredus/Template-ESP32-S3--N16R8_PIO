@@ -1,6 +1,6 @@
 # Structure du projet
 
-Version minimale valide : **1.0.2**
+Version minimale valide : **1.0.3**
 > 📚 **Envie d'explications détaillées ?** Consultez la [documentation didactique](/learning/README_fr.md) pour une plongée approfondie dans l'architecture !
 ## Arborescence (actuelle)
 - `src/main.cpp` : point d’entrée de l’application
@@ -12,6 +12,7 @@ Version minimale valide : **1.0.2**
   - `wifi_manager/`
 - `src/utils/`
   - headers partagés de config/état/projet
+  - utilitaires de logging (`logging.h`, `logging.cpp`)
 - `include/`
   - uniquement fichiers de configuration protégés
 - `data/`

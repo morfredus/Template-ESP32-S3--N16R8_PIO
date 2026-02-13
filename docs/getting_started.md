@@ -1,6 +1,6 @@
 # Getting Started (Beginner)
 
-Minimum valid version: **1.0.2**
+Minimum valid version: **1.0.3**
 
 > 📚 **Want to learn in depth?** Check out the comprehensive [educational documentation](/learning/README.md) that explains the code line by line!
 
@@ -29,5 +29,6 @@ Minimum valid version: **1.0.2**
 ## 6) Verify expected behavior
 - NeoPixel indicates status (scan/connect/error/success)
 - OLED shows splash, progress, then Wi-Fi information
+- Serial monitor shows verbose logs (Wi-Fi attempts, IP, HTTP ready)
 - Web interface loads from LittleFS
 - Runtime JSON endpoint is available at `/api/info`

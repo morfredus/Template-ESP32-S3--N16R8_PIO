@@ -1,6 +1,6 @@
 # Guide utilisateur
 
-Version minimale valide : **1.0.2**
+Version minimale valide : **1.0.3**
 
 > 📚 **Débutant en C++ ou ESP32 ?** Consultez la [documentation didactique](/learning/README_fr.md) pour des explications détaillées !
 
@@ -8,6 +8,7 @@ Version minimale valide : **1.0.2**
 - Tentatives de connexion Wi-Fi avec plusieurs identifiants
 - Retour OLED pendant le démarrage et la connectivité
 - Indicateur d’état NeoPixel
+- Logs série verbeux pour l’apprentissage et le diagnostic
 - Interface web embarquée servie depuis LittleFS
 - API d’informations de l’appareil sur `/api/info`
 
@@ -29,4 +30,5 @@ Version minimale valide : **1.0.2**
 ## Dépannage
 - Si le flash fonctionne mais le contenu web est ancien, regénérer/reflasher LittleFS.
 - Si le Wi-Fi échoue, vérifier les identifiants et la disponibilité réseau.
+- En cas de doute, lire les logs verbeux dans le moniteur série (tentatives Wi-Fi, IP, disponibilité HTTP).
 - Si l’OLED reste vide, vérifier le câblage et les broches dans `include/board_config.h`.

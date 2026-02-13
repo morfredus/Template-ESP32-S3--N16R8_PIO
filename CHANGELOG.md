@@ -1,6 +1,10 @@
 # Changelog
 
-Minimum valid version: **1.0.2**
+Minimum valid version: **1.0.3**
+
+## [1.0.3] - 2026-02-13
+1. Added verbose serial logging for startup, Wi-Fi, filesystem, and HTTP.
+2. Documented verbose logs and updated project structure references.
 
 ## [1.0.2] - 2026-02-13
 1. Fixed protected filename to strict snake_case: `include/secrets_example.h`.
