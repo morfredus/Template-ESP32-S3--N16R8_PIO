@@ -1,22 +1,22 @@
-# Concepts C++ utilisés dans ce projet
+# C++ Concepts Used in This Project
 
 ## 📚 Introduction
 
-Ce document explique les concepts C++ que vous rencontrez dans ce projet. Chaque concept est expliqué simplement, avec des analogies et des exemples.
+This document explains the C++ concepts you encounter in this project. Each concept is explained simply, with analogies and examples.
 
 ---
 
-## 1️⃣ Classes et Objets
+## 1️⃣ Classes and Objects
 
-### 🤔 Qu'est-ce qu'une classe ?
+### 🤔 What is a Class?
 
-Une **classe** est un **modèle** (blueprint) qui décrit :
-- Des **données** (variables membres)
-- Des **comportements** (fonctions membres = méthodes)
+A **class** is a **blueprint** that describes:
+- **Data** (member variables)
+- **Behaviors** (member functions = methods)
 
-**Analogie** : Une classe est comme un plan de construction d'une maison.
+**Analogy**: A class is like a house construction plan.
 
-### 🏠 Exemple : La classe NeoPixelStatus
+### 🏠 Example: The NeoPixelStatus Class
 
 ```cpp
 class NeoPixelStatus {
@@ -29,116 +29,100 @@ private:
 };
 ```
 
-**Décryptage** :
-- `class NeoPixelStatus` : Définit une nouvelle classe nommée `NeoPixelStatus`
-- `public:` : Méthodes accessibles de l'extérieur
-- `private:` : Données accessibles uniquement à l'intérieur de la classe
+**Breakdown**:
+- `class NeoPixelStatus`: Defines a new class named `NeoPixelStatus`
+- `public:`: Methods accessible from outside
+- `private:`: Data accessible only inside the class
 
-### 🔨 Créer un objet (instance)
-
-```cpp
-NeoPixelStatus pixel;  // Créer un objet de type NeoPixelStatus
-```
-
-**Analogie** : La classe est le plan, l'objet `pixel` est la maison construite à partir du plan.
-
-### 📞 Utiliser un objet
+### 🔨 Creating an Object (Instance)
 
 ```cpp
-pixel.begin();                      // Appeler la méthode begin()
-pixel.set(StatusColor::Connected);  // Appeler la méthode set()
+NeoPixelStatus pixel;  // Create an object of type NeoPixelStatus
 ```
 
-**Le point `.`** signifie "accéder à un membre de l'objet".
+**Analogy**: The class is the blueprint, the `pixel` object is the house built from the blueprint.
+
+### 📞 Using an Object
+
+```cpp
+pixel.begin();                      // Call the begin() method
+pixel.set(StatusColor::Connected);  // Call the set() method
+```
+
+**The dot `.`** means "access a member of the object".
 
 ---
 
-## 2️⃣ Références et pointeurs
+## 2️⃣ References and Pointers
 
-### 🔗 Les références (`&`)
+### 🔗 References (`&`)
 
-Une **référence** est un **alias** (surnom) pour un objet existant.
+A **reference** is an **alias** (nickname) for an existing object.
 
 ```cpp
 void WifiManager(NeoPixelStatus& px) {
-    // px est une référence, pas une copie
-    px.set(StatusColor::Scanning);  // Modifie l'objet original
+    // px is a reference, not a copy
+    px.set(StatusColor::Scanning);  // Modifies the original object
 }
 ```
 
-**Pourquoi utiliser `&` ?**
-- ✅ Évite de copier l'objet (économie de mémoire)
-- ✅ Modifie l'objet original (pas une copie)
+**Why use `&`?**
+- ✅ Avoids copying the object (saves memory)
+- ✅ Modifies the original object (not a copy)
 
-**Analogie** : Au lieu de photocopier un document, on pointe vers le document original.
+**Analogy**: Instead of photocopying a document, we point to the original document.
 
-### 🆚 Avec ou sans référence
+### 🆚 With or Without Reference
 
 ```cpp
-// SANS référence (copie)
-void fonction1(NeoPixelStatus px) {
-    px.set(...);  // Modifie la COPIE, pas l'original
+// WITHOUT reference (copy)
+void function1(NeoPixelStatus px) {
+    px.set(...);  // Modifies the COPY, not the original
 }
 
-// AVEC référence (alias)
-void fonction2(NeoPixelStatus& px) {
-    px.set(...);  // Modifie l'ORIGINAL
+// WITH reference (alias)
+void function2(NeoPixelStatus& px) {
+    px.set(...);  // Modifies the ORIGINAL
 }
 ```
 
-**Dans ce projet** : On utilise toujours des références pour éviter les copies coûteuses.
-
-### 🧭 Les pointeurs (`*`)
-
-Un **pointeur** est une variable qui contient l'**adresse mémoire** d'un objet.
-
-```cpp
-NeoPixelStatus* ptr = &pixel;  // ptr contient l'adresse de pixel
-ptr->set(StatusColor::Idle);   // Utiliser -> pour accéder
-```
-
-**Différence avec les références** :
-- Les pointeurs peuvent être `nullptr` (vide)
-- Les références sont toujours valides
-- Les références sont plus sûres et simples
-
-**Dans ce projet** : On préfère les références aux pointeurs quand possible (règle de sécurité).
+**In this project**: We always use references to avoid expensive copies.
 
 ---
 
 ## 3️⃣ Namespaces
 
-### 🗂️ Qu'est-ce qu'un namespace ?
+### 🗂️ What is a Namespace?
 
-Un **namespace** est un **dossier logique** pour organiser le code et éviter les conflits de noms.
+A **namespace** is a **logical folder** to organize code and avoid name conflicts.
 
-**Problème sans namespace** :
+**Problem without namespace**:
 ```cpp
-// Fichier A
+// File A
 int TIMEOUT = 1000;
 
-// Fichier B
-int TIMEOUT = 5000;  // ERREUR : conflit !
+// File B
+int TIMEOUT = 5000;  // ERROR: conflict!
 ```
 
-**Solution avec namespace** :
+**Solution with namespace**:
 ```cpp
-// Fichier A
+// File A
 namespace ModuleA {
     int TIMEOUT = 1000;
 }
 
-// Fichier B
+// File B
 namespace ModuleB {
     int TIMEOUT = 5000;
 }
 
-// Utilisation
+// Usage
 int x = ModuleA::TIMEOUT;  // 1000
 int y = ModuleB::TIMEOUT;  // 5000
 ```
 
-### 📦 Exemple dans ce projet
+### 📦 Example in This Project
 
 ```cpp
 namespace Config {
@@ -146,78 +130,58 @@ namespace Config {
     constexpr uint32_t WIFI_RETRY_DELAY_MS     = 500;
 }
 
-// Utilisation
+// Usage
 int timeout = Config::WIFI_CONNECT_TIMEOUT_MS;
 ```
 
-**`::` (opérateur de résolution de portée)** : "Accéder à quelque chose dans le namespace `Config`"
-
-### 💡 Pourquoi des namespaces ?
-
-- ✅ Évite les conflits de noms
-- ✅ Organise le code logiquement
-- ✅ Rend le code plus lisible
+**`::` (scope resolution operator)**: "Access something in the `Config` namespace"
 
 ---
 
-## 4️⃣ Constantes et constexpr
+## 4️⃣ Constants and constexpr
 
-### 📌 `const` : Valeur non modifiable
+### 📌 `const`: Immutable Value
 
 ```cpp
 const int MAX_RETRIES = 10;
-MAX_RETRIES = 20;  // ERREUR : ne peut pas modifier une const
+MAX_RETRIES = 20;  // ERROR: cannot modify a const
 ```
 
-**Utilité** : Protège contre les modifications accidentelles.
+**Purpose**: Protects against accidental modifications.
 
-### ⚡ `constexpr` : Constante évaluée à la compilation
+### ⚡ `constexpr`: Compile-Time Constant
 
 ```cpp
 constexpr uint32_t TIMEOUT = 20000;
 ```
 
-**Différence avec `const`** :
-- `const` : valeur non modifiable (peut être calculée à l'exécution)
-- `constexpr` : valeur **calculée à la compilation** (plus rapide, moins de mémoire)
+**Difference with `const`**:
+- `const`: immutable value (can be calculated at runtime)
+- `constexpr`: value **calculated at compile time** (faster, less memory)
 
-**Dans ce projet** : On utilise `constexpr` pour toutes les configurations fixes.
-
-### 🔢 Types numériques
-
-```cpp
-uint32_t nombre = 20000;
-```
-
-**Décomposition** :
-- `u` : **unsigned** (non signé, seulement positif)
-- `int` : entier
-- `32` : **32 bits** (peut aller de 0 à 4 294 967 295)
-- `_t` : convention pour les types standards
-
-**Pourquoi ?** C'est plus précis et portable que `int` (dont la taille varie selon la plateforme).
+**In this project**: We use `constexpr` for all fixed configurations.
 
 ---
 
-## 5️⃣ Enum et enum class
+## 5️⃣ Enum and Enum Class
 
-### 🎨 `enum` : Énumération
+### 🎨 `enum`: Enumeration
 
-Une **énumération** définit un ensemble de **valeurs nommées**.
+An **enumeration** defines a set of **named values**.
 
 ```cpp
-enum Couleur {
-    Rouge,
-    Vert,
-    Bleu
+enum Color {
+    Red,
+    Green,
+    Blue
 };
 
-Couleur c = Rouge;
+Color c = Red;
 ```
 
-**Problème** : Les noms polluent l'espace global.
+**Problem**: Names pollute the global space.
 
-### 🎯 `enum class` : Énumération sûre
+### 🎯 `enum class`: Safe Enumeration
 
 ```cpp
 enum class StatusColor {
@@ -227,23 +191,23 @@ enum class StatusColor {
     Connected
 };
 
-StatusColor etat = StatusColor::Idle;  // Doit préfixer avec StatusColor::
+StatusColor state = StatusColor::Idle;  // Must prefix with StatusColor::
 ```
 
-**Avantages** :
-- ✅ Pas de pollution de l'espace de noms
-- ✅ Plus sûr (pas de conversion implicite en int)
-- ✅ Plus lisible
+**Advantages**:
+- ✅ No namespace pollution
+- ✅ Safer (no implicit conversion to int)
+- ✅ More readable
 
-**Dans ce projet** : On utilise toujours `enum class`.
+**In this project**: We always use `enum class`.
 
 ---
 
 ## 6️⃣ Structures (struct)
 
-### 📦 Qu'est-ce qu'une structure ?
+### 📦 What is a Structure?
 
-Une **structure** regroupe plusieurs variables liées en une seule entité.
+A **structure** groups multiple related variables into a single entity.
 
 ```cpp
 struct PsramInfo {
@@ -256,114 +220,86 @@ struct PsramInfo {
 };
 ```
 
-**Utilisation** :
+**Usage**:
 ```cpp
 PsramInfo info;
 info.enabled = true;
 info.totalBytes = 8388608;
-
-// Ou initialisation directe
-PsramInfo info2 = {
-    .enabled = true,
-    .totalBytes = 8388608,
-    .freeBytes = 7000000,
-    .type = "OPI",
-    .mode = "8-line",
-    .speed = "80MHz"
-};
 ```
 
 ### 🆚 struct vs class
 
 | Aspect | `struct` | `class` |
 |--------|----------|---------|
-| **Visibilité par défaut** | `public` | `private` |
-| **Utilisation typique** | Regrouper des données | Encapsuler logique + données |
-
-**Dans ce projet** : On utilise `struct` pour les données simples (comme `PsramInfo`).
+| **Default visibility** | `public` | `private` |
+| **Typical usage** | Group data | Encapsulate logic + data |
 
 ---
 
 ## 7️⃣ std::string vs String
 
-### 🔤 Deux types de chaînes de caractères
+### 🔤 Two String Types
 
-#### Arduino `String` (déconseillé)
+#### Arduino `String` (discouraged)
 
 ```cpp
 String s = "Hello";
 s += " World";
 ```
 
-**Problèmes** :
-- ❌ Fragmentation de la mémoire heap
-- ❌ Lent et imprévisible
-- ❌ Peut causer des crashs sur ESP32
+**Problems**:
+- ❌ Heap memory fragmentation
+- ❌ Slow and unpredictable
+- ❌ Can cause crashes on ESP32
 
-#### C++ `std::string` (recommandé)
+#### C++ `std::string` (recommended)
 
 ```cpp
 std::string s = "Hello";
 s += " World";
 ```
 
-**Avantages** :
+**Advantages**:
 - ✅ Standard C++ (portable)
-- ✅ Gestion mémoire plus efficace
-- ✅ Plus sûr
+- ✅ More efficient memory management
+- ✅ Safer
 
-**Dans ce projet** : On utilise **toujours** `std::string`.
-
-### 🔄 Conversions
-
-```cpp
-std::string s = "Hello";
-const char* cstr = s.c_str();  // Pour les API C (comme Serial.print)
-
-String arduinoStr = String(s.c_str());  // Si vraiment nécessaire
-```
+**In this project**: We **always** use `std::string`.
 
 ---
 
 ## 8️⃣ std::string_view
 
-### 👀 Vue non-propriétaire
+### 👀 Non-Owning View
 
-`std::string_view` est une **vue** sur une chaîne de caractères, sans copie.
+`std::string_view` is a **view** on a string, without copying.
 
 ```cpp
-constexpr std::string_view PROJECT_NAME = "Mon Projet";
+constexpr std::string_view PROJECT_NAME = "My Project";
 ```
 
-**Avantages** :
-- ✅ Pas de copie (économie de mémoire)
-- ✅ Peut être `constexpr` (évalué à la compilation)
-- ✅ Très rapide
+**Advantages**:
+- ✅ No copy (saves memory)
+- ✅ Can be `constexpr` (evaluated at compile time)
+- ✅ Very fast
 
-**Dans ce projet** : Utilisé pour `PROJECT_NAME` et `PROJECT_VERSION` car ce sont des constantes compilées.
-
-### 🆚 std::string vs std::string_view
-
-| Type | Propriétaire | Copie | Modifiable |
-|------|--------------|-------|------------|
-| `std::string` | Oui | Oui | Oui |
-| `std::string_view` | Non (vue) | Non | Non |
+**In this project**: Used for `PROJECT_NAME` and `PROJECT_VERSION` because they're compile-time constants.
 
 ---
 
 ## 9️⃣ Singleton Pattern
 
-### 🏛️ Une seule instance globale
+### 🏛️ Single Global Instance
 
-Le **Singleton** garantit qu'il n'existe qu'**une seule instance** d'une classe.
+The **Singleton** guarantees that only **one instance** of a class exists.
 
-**Exemple : ConfigState**
+**Example: ConfigState**
 
 ```cpp
 class ConfigState {
 public:
     static ConfigState& instance() {
-        static ConfigState inst;  // Créée UNE SEULE FOIS
+        static ConfigState inst;  // Created ONLY ONCE
         return inst;
     }
 
@@ -371,64 +307,60 @@ public:
     const std::string& ip() const { return ipAddress; }
 
 private:
-    ConfigState() = default;  // Constructeur privé
+    ConfigState() = default;  // Private constructor
 
     std::string ipAddress;
     std::string connectedSsid;
 };
 ```
 
-**Utilisation** :
+**Usage**:
 ```cpp
 ConfigState::instance().setIp("192.168.1.100");
 std::string ip = ConfigState::instance().ip();
 ```
 
-**Explications** :
+**How it works**:
 
-1. **`static ConfigState& instance()`** : Fonction statique (pas besoin d'objet pour l'appeler)
-2. **`static ConfigState inst;`** : Variable locale statique (créée une seule fois, vit jusqu'à la fin du programme)
-3. **`ConfigState() = default;`** : Constructeur par défaut, mais **privé** → impossible de créer un objet directement
+1. **`static ConfigState& instance()`**: Static function (no object needed to call it)
+2. **`static ConfigState inst;`**: Static local variable (created once, lives until program end)
+3. **`ConfigState() = default;`**: Default constructor, but **private** → impossible to create an object directly
 
-**Pourquoi ?**
-- ✅ État global accessible partout
-- ✅ Une seule instance garantie
-- ✅ Création paresseuse (lazy initialization)
-
-**Quand l'utiliser ?**
-- Configuration globale (comme ici)
-- Gestionnaires de ressources partagées
+**Why?**
+- ✅ Global state accessible everywhere
+- ✅ Single instance guaranteed
+- ✅ Lazy initialization
 
 ---
 
-## 🔟 Includes et Pragma Once
+## 🔟 Includes and Pragma Once
 
-### 📥 `#include` : Inclusion de fichiers
+### 📥 `#include`: File Inclusion
 
 ```cpp
-#include <Arduino.h>       // Bibliothèque système (chevrons <>)
-#include "wifi_manager.h"  // Fichier local (guillemets "")
+#include <Arduino.h>       // System library (angle brackets <>)
+#include "wifi_manager.h"  // Local file (quotes "")
 ```
 
-**Comment ça marche ?**
-Le préprocesseur **copie-colle** le contenu du fichier inclus à cet endroit.
+**How it works?**
+The preprocessor **copy-pastes** the included file content at this location.
 
-### 🛡️ `#pragma once` : Protection contre les doubles inclusions
+### 🛡️ `#pragma once`: Protection Against Double Inclusion
 
-**Problème** :
+**Problem**:
 ```cpp
-// fichier A.h
+// file A.h
 struct Data { int x; };
 
-// fichier B.h
+// file B.h
 #include "A.h"
 
-// fichier C.cpp
+// file C.cpp
 #include "A.h"
-#include "B.h"  // A.h inclus 2 fois → ERREUR : redéfinition de Data
+#include "B.h"  // A.h included twice → ERROR: redefinition of Data
 ```
 
-**Solution** :
+**Solution**:
 ```cpp
 // A.h
 #pragma once
@@ -436,17 +368,17 @@ struct Data { int x; };
 struct Data { int x; };
 ```
 
-**Effet** : Le fichier A.h ne sera inclus qu'**une seule fois** même s'il est demandé plusieurs fois.
+**Effect**: File A.h will only be included **once** even if requested multiple times.
 
-**Dans ce projet** : Tous les fichiers `.h` commencent par `#pragma once`.
+**In this project**: All `.h` files start with `#pragma once`.
 
 ---
 
-## 1️⃣1️⃣ Constructeurs et listes d'initialisation
+## 1️⃣1️⃣ Constructors and Initialization Lists
 
-### 🏗️ Constructeur
+### 🏗️ Constructor
 
-Un **constructeur** est une fonction spéciale appelée lors de la **création** d'un objet.
+A **constructor** is a special function called when **creating** an object.
 
 ```cpp
 class WifiManager {
@@ -455,175 +387,69 @@ public:
 };
 ```
 
-### 📋 Liste d'initialisation
+### 📋 Initialization List
 
 ```cpp
 WifiManager::WifiManager(NeoPixelStatus& px, OledDisplay& ol)
     : pixel(px), display(ol) {
-    // Corps du constructeur (peut être vide)
+    // Constructor body (can be empty)
 }
 ```
 
-**Explication** :
-- `: pixel(px), display(ol)` : **liste d'initialisation**
-- **Avant** l'accolade `{`, on initialise les membres
-- Plus efficace que l'affectation dans le corps
+**Explanation**:
+- `: pixel(px), display(ol)`: **initialization list**
+- **Before** the brace `{`, we initialize members
+- More efficient than assignment in the body
 
-**Équivalent moins efficace** :
-```cpp
-WifiManager::WifiManager(NeoPixelStatus& px, OledDisplay& ol) {
-    pixel = px;   // Affectation (moins efficace)
-    display = ol;
-}
-```
-
-**Pourquoi la liste d'initialisation ?**
-- ✅ Obligatoire pour les références (on ne peut pas affecter une référence)
-- ✅ Plus efficace (initialisation directe)
-- ✅ Ordre d'initialisation clair
+**Why initialization list?**
+- ✅ Required for references (you can't assign a reference)
+- ✅ More efficient (direct initialization)
+- ✅ Clear initialization order
 
 ---
 
 ## 1️⃣2️⃣ Public, Private, Protected
 
-### 🔓 Niveaux d'accès
+### 🔓 Access Levels
 
 ```cpp
-class Exemple {
+class Example {
 public:
-    void methodePublique();    // Accessible partout
+    void publicMethod();    // Accessible everywhere
 
 private:
-    void methodePrivee();      // Accessible uniquement dans la classe
-    int donneePrivee;
+    void privateMethod();   // Accessible only within the class
+    int privateData;
 
 protected:
-    void methodeProtegee();    // Accessible dans la classe et les classes dérivées
+    void protectedMethod(); // Accessible in class and derived classes
 };
 ```
 
-**Règle d'or** :
-- Données → **private**
-- Méthodes d'interface → **public**
-- Méthodes d'implémentation → **private**
+**Golden rule**:
+- Data → **private**
+- Interface methods → **public**
+- Implementation methods → **private**
 
-**Pourquoi ?** **Encapsulation** : cacher les détails internes, exposer uniquement l'interface.
-
----
-
-## 1️⃣3️⃣ Macros (#define)
-
-### 🔧 Définir une constante
-
-```cpp
-#define OLED_SDA_PIN 15
-#define OLED_SCL_PIN 16
-```
-
-**Comment ça marche ?**
-Le préprocesseur **remplace** toutes les occurrences de `OLED_SDA_PIN` par `15` avant la compilation.
-
-**Utilisation** :
-```cpp
-Wire.begin(OLED_SDA_PIN, OLED_SCL_PIN);
-// Devient après préprocessing :
-Wire.begin(15, 16);
-```
-
-### 🆚 #define vs constexpr
-
-| Aspect | `#define` | `constexpr` |
-|--------|-----------|-------------|
-| **Type** | Aucun (texte brut) | Type vérifié |
-| **Portée** | Globale | Respecte les scopes |
-| **Débogage** | Difficile | Facile |
-
-**Quand utiliser `#define` ?**
-- Configuration matérielle (GPIO, ports)
-- Traditionnellement utilisé en C embarqué
-
-**Dans ce projet** :
-- `#define` pour les GPIO (board_config.h)
-- `constexpr` pour les autres constantes (config.h)
+**Why?** **Encapsulation**: hide internal details, expose only the interface.
 
 ---
 
-## 1️⃣4️⃣ Type Casting
+## 📊 Summary of Concepts
 
-### 🔀 Conversion de types
-
-```cpp
-float progress = (float)(millis() - start) / timeout;
-```
-
-**Explication** :
-- `(float)` : **cast** (conversion forcée) vers `float`
-- Nécessaire car `millis()` retourne un `unsigned long` (entier)
-- Sans cast, division entière → perte de précision
-
-**Exemple** :
-```cpp
-int a = 5;
-int b = 2;
-int resultat = a / b;        // 2 (division entière)
-float resultat2 = (float)a / b;  // 2.5 (division réelle)
-```
-
----
-
-## 1️⃣5️⃣ Boolean et return
-
-### ✅ Type `bool`
-
-```cpp
-bool connected = true;
-bool error = false;
-```
-
-**Valeurs** : `true` (vrai) ou `false` (faux)
-
-### 🔙 `return`
-
-```cpp
-bool WifiManager::connect() {
-    if (erreur) {
-        return false;  // Sort de la fonction et retourne false
-    }
-    
-    // ...
-    
-    return true;  // Sort de la fonction et retourne true
-}
-```
-
-**Utilisation** :
-```cpp
-bool ok = wifi.connect();
-
-if (ok) {
-    Serial.println("Connecté !");
-} else {
-    Serial.println("Erreur de connexion");
-}
-```
-
----
-
-## 📊 Résumé des concepts
-
-| Concept | Utilisation dans le projet |
-|---------|---------------------------|
+| Concept | Usage in Project |
+|---------|------------------|
 | **Classes** | NeoPixelStatus, OledDisplay, WifiManager |
-| **Références (`&`)** | Passer des objets sans copie |
+| **References (`&`)** | Pass objects without copying |
 | **Namespaces** | Config, ProjectInfo, ConfigConstants |
-| **constexpr** | Constantes de configuration |
-| **enum class** | StatusColor (états de la LED) |
-| **struct** | PsramInfo (regrouper données) |
-| **std::string** | Chaînes de caractères (IP, SSID) |
-| **Singleton** | ConfigState (état global unique) |
-| **#pragma once** | Protection des headers |
-| **#define** | Macros pour GPIO |
+| **constexpr** | Configuration constants |
+| **enum class** | StatusColor (LED states) |
+| **struct** | PsramInfo (group data) |
+| **std::string** | Character strings (IP, SSID) |
+| **Singleton** | ConfigState (unique global state) |
+| **#pragma once** | Header protection |
+| **#define** | GPIO macros |
 
 ---
 
-**Prochaine étape** : Lisez `04_main_explique.md` pour une analyse détaillée ligne par ligne du fichier main.cpp.
+**Next step**: Read `04_main_explique_en.md` for a detailed line-by-line analysis of the main.cpp file.

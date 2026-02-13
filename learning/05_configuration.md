@@ -1,44 +1,44 @@
-# Fichiers de configuration
+# Configuration Files
 
-## 📋 Vue d'ensemble
+## 📋 Overview
 
-La configuration est **séparée** du code principal pour faciliter :
-- ✅ Les modifications sans toucher au code
-- ✅ L'adaptation à différentes cartes
-- ✅ La sécurité (secrets non partagés)
+Configuration is **separated** from the main code to facilitate:
+- ✅ Modifications without touching the code
+- ✅ Adaptation to different boards
+- ✅ Security (secrets not shared)
 
-**Fichiers de configuration** :
-1. `board_config.h` - Configuration matérielle (GPIO)
-2. `config.h` - Configuration logicielle (timeouts, paramètres)
-3. `secrets.h` - Identifiants sensibles (WiFi)
-4. `config_constants.h` - Constantes dérivées (dans src/utils)
-5. `config_state.h` - État de la configuration à l'exécution
+**Configuration files**:
+1. `board_config.h` - Hardware configuration (GPIO)
+2. `config.h` - Software configuration (timeouts, parameters)
+3. `secrets.h` - Sensitive credentials (WiFi)
+4. `config_constants.h` - Derived constants (in src/utils)
+5. `config_state.h` - Runtime configuration state
 
 ---
 
-## 1️⃣ board_config.h (Configuration matérielle)
+## 1️⃣ board_config.h (Hardware Configuration)
 
-### 📍 Localisation
+### 📍 Location
 ```
 include/board_config.h
 ```
 
-### 🎯 Rôle
+### 🎯 Role
 
-Définit **toutes les broches GPIO** et paramètres matériels spécifiques à la carte.
+Defines **all GPIO pins** and hardware parameters specific to the board.
 
-### 📄 Contenu complet
+### 📄 Complete Content
 
 ```cpp
 #pragma once
 
-// OLED I2C (recommandé par Espressif)
+// OLED I2C (recommended by Espressif)
 #define OLED_SDA_PIN  15
 #define OLED_SCL_PIN  16
 #define OLED_WIDTH    128
 #define OLED_HEIGHT   64
 
-// NeoPixel intégré
+// Built-in NeoPixel
 #define NEOPIXEL_PIN        48
 #define NEOPIXEL_BRIGHTNESS 38  // ~15%
 
@@ -48,7 +48,7 @@ Définit **toutes les broches GPIO** et paramètres matériels spécifiques à l
 
 ---
 
-### 📖 Explication détaillée
+### 📖 Detailed Explanation
 
 #### OLED I2C
 
@@ -57,19 +57,19 @@ Définit **toutes les broches GPIO** et paramètres matériels spécifiques à l
 #define OLED_SCL_PIN  16
 ```
 
-**Rôle** : Définit les broches GPIO pour le bus I2C de l'écran OLED.
+**Role**: Defines GPIO pins for the OLED screen's I2C bus.
 
-**C'est quoi I2C ?**
+**What is I2C?**
 - **I**nter-**I**ntegrated **C**ircuit
-- Bus de communication à 2 fils :
-  - **SDA** (Serial Data) : ligne de données
-  - **SCL** (Serial Clock) : ligne d'horloge
+- 2-wire communication bus:
+  - **SDA** (Serial Data): data line
+  - **SCL** (Serial Clock): clock line
 
-**Pourquoi ces broches ?**
-- GPIO 15 et 16 sont recommandés par Espressif pour l'I2C sur l'ESP32-S3
-- Évite les conflits avec d'autres périphériques internes
+**Why these pins?**
+- GPIO 15 and 16 are recommended by Espressif for I2C on ESP32-S3
+- Avoids conflicts with other internal peripherals
 
-**Analogie** : Comme un câble USB avec 2 fils (données + horloge) pour connecter plusieurs appareils.
+**Analogy**: Like a USB cable with 2 wires (data + clock) to connect multiple devices.
 
 ---
 
@@ -78,16 +78,16 @@ Définit **toutes les broches GPIO** et paramètres matériels spécifiques à l
 #define OLED_HEIGHT   64
 ```
 
-**Rôle** : Dimensions de l'écran OLED en pixels.
+**Role**: OLED screen dimensions in pixels.
 
-**Pourquoi définir en constante ?**
-- ✅ Facile de changer si vous utilisez un autre écran (ex: 128x32)
-- ✅ Utilisé pour calculer les positions d'affichage
+**Why define as constant?**
+- ✅ Easy to change if you use another screen (e.g., 128x32)
+- ✅ Used to calculate display positions
 
-**Utilisation dans le code** :
+**Usage in code**:
 ```cpp
 display.begin(OLED_WIDTH, OLED_HEIGHT);
-int centreX = OLED_WIDTH / 2;  // Calculer le centre
+int centerX = OLED_WIDTH / 2;  // Calculate center
 ```
 
 ---
@@ -98,11 +98,11 @@ int centreX = OLED_WIDTH / 2;  // Calculer le centre
 #define NEOPIXEL_PIN        48
 ```
 
-**Rôle** : Broche GPIO connectée à la LED NeoPixel intégrée.
+**Role**: GPIO pin connected to the built-in NeoPixel LED.
 
-**Pourquoi GPIO 48 ?**
-- Sur l'ESP32-S3-DevKitC-1, la LED RGB intégrée est câblée sur GPIO 48
-- C'est fixe sur cette carte, impossible de changer
+**Why GPIO 48?**
+- On ESP32-S3-DevKitC-1, the built-in RGB LED is wired to GPIO 48
+- It's fixed on this board, cannot be changed
 
 ---
 
@@ -110,16 +110,16 @@ int centreX = OLED_WIDTH / 2;  // Calculer le centre
 #define NEOPIXEL_BRIGHTNESS 38  // ~15%
 ```
 
-**Rôle** : Luminosité de la LED (0-255).
+**Role**: LED brightness (0-255).
 
-**Pourquoi 38 (~15%) ?**
-- Les LEDs NeoPixel sont **très lumineuses** à 100%
-- 38/255 ≈ 15% : confortable pour les yeux
-- Économise aussi un peu d'énergie
+**Why 38 (~15%)?**
+- NeoPixel LEDs are **very bright** at 100%
+- 38/255 ≈ 15%: comfortable for eyes
+- Also saves a bit of energy
 
-**Comment ça fonctionne ?**
+**How it works?**
 ```cpp
-pixel.setBrightness(NEOPIXEL_BRIGHTNESS);  // Applique la luminosité
+pixel.setBrightness(NEOPIXEL_BRIGHTNESS);  // Apply brightness
 ```
 
 ---
@@ -130,47 +130,47 @@ pixel.setBrightness(NEOPIXEL_BRIGHTNESS);  // Applique la luminosité
 #define WEB_SERVER_PORT 80
 ```
 
-**Rôle** : Port réseau pour le serveur web.
+**Role**: Network port for the web server.
 
-**Pourquoi 80 ?**
-- Port standard HTTP (comme les sites web normaux)
-- Permet d'accéder sans spécifier le port : `http://192.168.1.42/` au lieu de `http://192.168.1.42:8080/`
+**Why 80?**
+- Standard HTTP port (like normal websites)
+- Allows access without specifying port: `http://192.168.1.42/` instead of `http://192.168.1.42:8080/`
 
-**Autres ports courants** :
-- 80 : HTTP (non sécurisé)
-- 443 : HTTPS (sécurisé)
-- 8080 : HTTP alternatif (souvent pour développement)
-
----
-
-### 🛡️ RÈGLE IMPORTANTE
-
-**❌ NE PAS MODIFIER ce fichier sans raison valide !**
-
-**Pourquoi ?**
-- Les GPIO sont liés au **matériel physique**
-- Modifier sans connaissance → risque de conflit ou dysfonctionnement
-- Les autres développeurs comptent sur ces valeurs
-
-**Quand modifier ?**
-- Changement de carte ESP32
-- Ajout d'un nouveau périphérique (avec confirmation de GPIO libres)
-- Résolution d'un conflit matériel
+**Common ports**:
+- 80: HTTP (unsecure)
+- 443: HTTPS (secure)
+- 8080: Alternative HTTP (often for development)
 
 ---
 
-## 2️⃣ config.h (Configuration logicielle)
+### 🛡️ IMPORTANT RULE
 
-### 📍 Localisation
+**❌ DO NOT MODIFY this file without a valid reason!**
+
+**Why?**
+- GPIOs are tied to **physical hardware**
+- Modifying without knowledge → risk of conflict or malfunction
+- Other developers rely on these values
+
+**When to modify?**
+- Changing ESP32 board
+- Adding a new peripheral (with confirmation of free GPIOs)
+- Resolving a hardware conflict
+
+---
+
+## 2️⃣ config.h (Software Configuration)
+
+### 📍 Location
 ```
 include/config.h
 ```
 
-### 🎯 Rôle
+### 🎯 Role
 
-Définit les **paramètres de comportement** du programme (timeouts, délais, etc.).
+Defines program **behavior parameters** (timeouts, delays, etc.).
 
-### 📄 Contenu complet
+### 📄 Complete Content
 
 ```cpp
 #pragma once
@@ -178,205 +178,159 @@ Définit les **paramètres de comportement** du programme (timeouts, délais, et
 
 namespace Config {
     constexpr uint32_t WIFI_CONNECT_TIMEOUT_MS = 20000; // 20 s total
-    constexpr uint32_t WIFI_RETRY_DELAY_MS     = 500;   // 0,5 s par tentative
-    constexpr uint32_t SPLASH_SCREEN_MS        = 2000;  // splash OLED
+    constexpr uint32_t WIFI_RETRY_DELAY_MS     = 500;   // 0.5 s per attempt
+    constexpr uint32_t SPLASH_SCREEN_MS        = 2000;  // OLED splash
 }
 ```
 
 ---
 
-### 📖 Explication détaillée
+### 📖 Detailed Explanation
 
-#### Namespace Config
-
-```cpp
-namespace Config {
-    // ...
-}
-```
-
-**Pourquoi un namespace ?**
-- ✅ Organisation : toutes les configs au même endroit
-- ✅ Évite les conflits : `Config::WIFI_TIMEOUT` vs `WIFI_TIMEOUT` global
-- ✅ Lisibilité : le préfixe `Config::` indique que c'est un paramètre
-
----
-
-#### Timeout de connexion WiFi
+#### WiFi Connection Timeout
 
 ```cpp
 constexpr uint32_t WIFI_CONNECT_TIMEOUT_MS = 20000; // 20 s total
 ```
 
-**Rôle** : Durée maximale (en millisecondes) pour tenter de se connecter au WiFi.
+**Role**: Maximum duration (in milliseconds) to attempt WiFi connection.
 
-**Décomposition** :
-- `constexpr` : constante évaluée à la compilation
-- `uint32_t` : entier non signé 32 bits (0 à 4 294 967 295)
-- `= 20000` : 20 000 millisecondes = 20 secondes
+**Breakdown**:
+- `constexpr`: constant evaluated at compile time
+- `uint32_t`: unsigned 32-bit integer (0 to 4,294,967,295)
+- `= 20000`: 20,000 milliseconds = 20 seconds
 
-**Pourquoi 20 secondes ?**
-- Assez long pour donner le temps au WiFi de se connecter
-- Pas trop long pour ne pas bloquer indéfiniment
+**Why 20 seconds?**
+- Long enough to give WiFi time to connect
+- Not too long to avoid blocking indefinitely
 
-**Utilisation** :
+**Usage**:
 ```cpp
 unsigned long timeout = Config::WIFI_CONNECT_TIMEOUT_MS;
 if (millis() - start > timeout) {
-    // Timeout dépassé, abandonner
+    // Timeout exceeded, give up
 }
 ```
 
 ---
 
-#### Délai entre les tentatives
+#### Delay Between Attempts
 
 ```cpp
-constexpr uint32_t WIFI_RETRY_DELAY_MS = 500;   // 0,5 s par tentative
+constexpr uint32_t WIFI_RETRY_DELAY_MS = 500;   // 0.5 s per attempt
 ```
 
-**Rôle** : Délai (en millisecondes) entre chaque vérification de l'état WiFi.
+**Role**: Delay (in milliseconds) between each WiFi status check.
 
-**Pourquoi 500 ms ?**
-- Vérifie l'état toutes les 0,5 secondes
-- Permet de mettre à jour l'écran et la LED régulièrement
-- Pas trop rapide (économie CPU), pas trop lent (réactivité)
+**Why 500 ms?**
+- Checks status every 0.5 seconds
+- Allows regular screen and LED updates
+- Not too fast (CPU savings), not too slow (responsiveness)
 
-**Utilisation** :
+**Usage**:
 ```cpp
 while (WiFi.status() != WL_CONNECTED) {
     // ...
-    delay(Config::WIFI_RETRY_DELAY_MS);  // Attendre avant de réessayer
+    delay(Config::WIFI_RETRY_DELAY_MS);  // Wait before retrying
 }
 ```
 
 ---
 
-#### Durée du splash screen
+#### Splash Screen Duration
 
 ```cpp
-constexpr uint32_t SPLASH_SCREEN_MS = 2000;  // splash OLED
+constexpr uint32_t SPLASH_SCREEN_MS = 2000;  // OLED splash
 ```
 
-**Rôle** : Durée d'affichage (en millisecondes) de l'écran de démarrage.
+**Role**: Display duration (in milliseconds) of the startup screen.
 
-**Pourquoi 2 secondes ?**
-- Assez long pour lire le nom et la version
-- Pas trop long pour ne pas ralentir le démarrage
-
-**Utilisation** :
-```cpp
-oled.splash();
-delay(Config::SPLASH_SCREEN_MS);  // Afficher pendant 2 secondes
-```
+**Why 2 seconds?**
+- Long enough to read name and version
+- Not too long to avoid slowing down startup
 
 ---
 
-### 💡 Avantages de cette approche
+### 💡 Advantages of This Approach
 
-**Centralisation** :
-- Tous les paramètres au même endroit
-- Facile de les ajuster
+**Centralization**:
+- All parameters in one place
+- Easy to adjust
 
-**Lisibilité** :
+**Readability**:
 ```cpp
-// ❌ Difficile à comprendre
+// ❌ Hard to understand
 delay(2000);
 
-// ✅ Clair et explicite
+// ✅ Clear and explicit
 delay(Config::SPLASH_SCREEN_MS);
 ```
 
-**Facilité de maintenance** :
-- Pour changer le timeout WiFi, modifier **un seul endroit**
-- Pas besoin de chercher dans tout le code
+**Maintainability**:
+- To change WiFi timeout, modify **one place only**
+- No need to search through all code
 
 ---
 
-## 3️⃣ secrets.h (Identifiants sensibles)
+## 3️⃣ secrets.h (Sensitive Credentials)
 
-### 📍 Localisation
+### 📍 Location
 ```
 include/secrets.h
 ```
 
-### 🎯 Rôle
+### 🎯 Role
 
-Contient les **identifiants sensibles** (SSID WiFi, mot de passe).
+Contains **sensitive credentials** (WiFi SSID, password).
 
-### 📄 Structure typique
+### 📄 Typical Structure
 
 ```cpp
 #pragma once
 
 // WiFi credentials
-#define WIFI_SSID     "Votre_SSID_WiFi"
-#define WIFI_PASSWORD "Votre_MotDePasse"
+#define WIFI_SSID     "Your_WiFi_SSID"
+#define WIFI_PASSWORD "Your_Password"
 ```
 
-**⚠️ ATTENTION** :
-- ❌ NE JAMAIS partager ce fichier
-- ❌ NE JAMAIS le pousser sur GitHub/GitLab
-- 🛡️ Il est dans `.gitignore` pour éviter les commits accidentels
+**⚠️ WARNING**:
+- ❌ NEVER share this file
+- ❌ NEVER push it to GitHub/GitLab
+- 🛡️ It's in `.gitignore` to avoid accidental commits
 
 ---
 
-### 🔒 Sécurité
+### 🔒 Security
 
-**Pourquoi un fichier séparé ?**
-- ✅ Le code peut être partagé sans exposer les identifiants
-- ✅ Chaque développeur a ses propres identifiants
-- ✅ Facilite le versionnage (secrets pas dans Git)
+**Why a separate file?**
+- ✅ Code can be shared without exposing credentials
+- ✅ Each developer has their own credentials
+- ✅ Facilitates versioning (secrets not in Git)
 
-**Fichier example fourni** :
+**Example file provided**:
 ```
 include/secrets_example.h
 ```
 
-**Contenu** :
-```cpp
-#pragma once
-
-// WiFi credentials
-#define WIFI_SSID     "YOUR_SSID_HERE"
-#define WIFI_PASSWORD "YOUR_PASSWORD_HERE"
-```
-
-**Usage** :
-1. Copier `secrets_example.h` → `secrets.h`
-2. Modifier avec vos vrais identifiants
-3. `secrets.h` est ignoré par Git
+**Usage**:
+1. Copy `secrets_example.h` → `secrets.h`
+2. Modify with your real credentials
+3. `secrets.h` is ignored by Git
 
 ---
 
-### 📖 Utilisation dans le code
+## 4️⃣ config_constants.h (Derived Constants)
 
-```cpp
-// Dans wifi_manager.cpp
-WiFi.begin(WIFI_SSID, WIFI_PASSWORD);
-```
-
-**Comment ça marche ?**
-- Le préprocesseur remplace `WIFI_SSID` par la valeur définie
-- Équivaut à :
-```cpp
-WiFi.begin("Votre_SSID_WiFi", "Votre_MotDePasse");
-```
-
----
-
-## 4️⃣ config_constants.h (Constantes dérivées)
-
-### 📍 Localisation
+### 📍 Location
 ```
 src/utils/config_constants.h
 ```
 
-### 🎯 Rôle
+### 🎯 Role
 
-Rend accessibles les constantes **injectées à la compilation** (depuis `platformio.ini`).
+Makes accessible constants **injected at compile time** (from `platformio.ini`).
 
-### 📄 Contenu complet
+### 📄 Complete Content
 
 ```cpp
 #pragma once
@@ -390,9 +344,9 @@ namespace ConfigConstants {
 
 ---
 
-### 📖 Explication détaillée
+### 📖 Detailed Explanation
 
-#### Origine : platformio.ini
+#### Origin: platformio.ini
 
 ```ini
 [env:esp32-s3-devkitc-1]
@@ -401,13 +355,13 @@ build_flags =
     -D PROJECT_VERSION='"1.0.0"'
 ```
 
-**Explication** :
-- `-D PROJECT_NAME='"..."'` : définit une macro `PROJECT_NAME` avec la valeur entre guillemets
-- Ces macros sont disponibles **partout** dans le code C++
+**Explanation**:
+- `-D PROJECT_NAME='"..."'`: defines a `PROJECT_NAME` macro with the value in quotes
+- These macros are available **everywhere** in C++ code
 
 ---
 
-#### Wrapping dans un namespace
+#### Wrapping in a Namespace
 
 ```cpp
 namespace ConfigConstants {
@@ -415,46 +369,30 @@ namespace ConfigConstants {
 }
 ```
 
-**Pourquoi ce wrapper ?**
-1. **Organisation** : Regrouper dans un namespace clair
-2. **Type safe** : `std::string_view` au lieu d'une macro brute
-3. **Lisibilité** : `ConfigConstants::PROJECT_NAME` vs `PROJECT_NAME` (macro)
+**Why this wrapper?**
+1. **Organization**: Group in a clear namespace
+2. **Type safe**: `std::string_view` instead of raw macro
+3. **Readability**: `ConfigConstants::PROJECT_NAME` vs `PROJECT_NAME` (macro)
 
-**C'est quoi `std::string_view` ?**
-- Vue **non-propriétaire** sur une chaîne
-- Pas de copie, juste un pointeur + taille
-- Très efficace pour les constantes
-
----
-
-### 💡 Utilisation
-
-```cpp
-#include "utils/config_constants.h"
-
-Serial.print("Projet : ");
-Serial.println(ConfigConstants::PROJECT_NAME.data());
-
-Serial.print("Version : ");
-Serial.println(ConfigConstants::PROJECT_VERSION.data());
-```
-
-**`.data()`** : retourne un `const char*` (format C) pour les API Arduino.
+**What is `std::string_view`?**
+- **Non-owning** view on a string
+- No copy, just a pointer + size
+- Very efficient for constants
 
 ---
 
-## 5️⃣ config_state.h (État à l'exécution)
+## 5️⃣ config_state.h (Runtime State)
 
-### 📍 Localisation
+### 📍 Location
 ```
 src/utils/config_state.h
 ```
 
-### 🎯 Rôle
+### 🎯 Role
 
-Stocke l'**état de la configuration à l'exécution** (valeurs qui changent pendant le programme).
+Stores **runtime configuration state** (values that change during the program).
 
-### 📄 Contenu complet
+### 📄 Complete Content
 
 ```cpp
 #pragma once
@@ -483,9 +421,9 @@ private:
 
 ---
 
-### 📖 Explication détaillée
+### 📖 Detailed Explanation
 
-#### Pattern Singleton
+#### Singleton Pattern
 
 ```cpp
 static ConfigState& instance() {
@@ -494,13 +432,13 @@ static ConfigState& instance() {
 }
 ```
 
-**Rôle** : Garantit qu'il n'existe qu'**une seule instance** de `ConfigState`.
+**Role**: Guarantees only **one instance** of `ConfigState` exists.
 
-**Comment ça marche ?**
-1. `static ConfigState inst;` : variable locale statique, créée **une seule fois**
-2. `return inst;` : retourne toujours la même instance
+**How it works**:
+1. `static ConfigState inst;`: static local variable, created **once**
+2. `return inst;`: always returns the same instance
 
-**Utilisation** :
+**Usage**:
 ```cpp
 ConfigState::instance().setIp("192.168.1.42");
 std::string ip = ConfigState::instance().ip();
@@ -508,64 +446,20 @@ std::string ip = ConfigState::instance().ip();
 
 ---
 
-#### Getters et Setters
+### 💡 Complete Usage
+
+#### 1. Save State (after WiFi connection)
 
 ```cpp
-void setIp(const std::string& ip) { ipAddress = ip; }
-const std::string& ip() const { return ipAddress; }
-```
-
-**Rôle** :
-- `setIp()` : **setter** (définit l'IP)
-- `ip()` : **getter** (récupère l'IP)
-
-**Pourquoi des accesseurs ?**
-- ✅ Encapsulation : contrôle l'accès aux données
-- ✅ Flexibilité : possibilité d'ajouter de la logique (validation, logging, etc.)
-
-**`const` après la fonction** :
-```cpp
-const std::string& ip() const { ... }
-```
-- Indique que la fonction **ne modifie pas** l'objet
-- Permet d'appeler la fonction sur des objets constants
-
----
-
-#### Données privées
-
-```cpp
-private:
-    ConfigState() = default;
-
-    std::string ipAddress;
-    std::string connectedSsid;
-```
-
-**Rôle** :
-- `ConfigState() = default;` : constructeur privé (empêche la création directe d'instances)
-- `ipAddress`, `connectedSsid` : données stockées
-
-**Pourquoi privé ?**
-- Force l'utilisation du singleton (`instance()`)
-- Impossible de créer un autre `ConfigState`
-
----
-
-### 💡 Utilisation complète
-
-#### 1. Enregistrer l'état (après connexion WiFi)
-
-```cpp
-// Dans wifi_manager.cpp
+// In wifi_manager.cpp
 ConfigState::instance().setIp(WiFi.localIP().toString().c_str());
 ConfigState::instance().setSsid(WIFI_SSID);
 ```
 
-#### 2. Lire l'état (dans main.cpp)
+#### 2. Read State (in main.cpp)
 
 ```cpp
-// Dans buildInfoJson()
+// In buildInfoJson()
 json += "\"ssid\":\"";
 json += ConfigState::instance().ssid().c_str();
 json += "\",";
@@ -575,10 +469,10 @@ json += ConfigState::instance().ip().c_str();
 json += "\"";
 ```
 
-#### 3. Afficher l'état (sur l'écran OLED)
+#### 3. Display State (on OLED screen)
 
 ```cpp
-// Dans oled_display.cpp
+// In oled_display.cpp
 display.print(ConfigState::instance().ssid().c_str());
 display.print(ConfigState::instance().ip().c_str());
 ```
@@ -587,82 +481,57 @@ display.print(ConfigState::instance().ip().c_str());
 
 ### 🆚 config.h vs config_state.h
 
-| Fichier | Type | Valeurs | Moment |
-|---------|------|---------|--------|
-| **config.h** | Constantes | Fixes (timeouts, délais) | Compilation |
-| **config_state.h** | État | Variables (IP, SSID) | Exécution |
+| File | Type | Values | When |
+|------|------|--------|------|
+| **config.h** | Constants | Fixed (timeouts, delays) | Compile time |
+| **config_state.h** | State | Variables (IP, SSID) | Runtime |
 
-**Analogie** :
-- `config.h` : Les règles du jeu (fixes)
-- `config_state.h` : Le score actuel (change pendant le jeu)
-
----
-
-## 📊 Récapitulatif des fichiers de configuration
-
-| Fichier | Localisation | Rôle | Modifiable |
-|---------|--------------|------|------------|
-| **board_config.h** | `include/` | GPIO, ports | ❌ Rarement |
-| **config.h** | `include/` | Timeouts, paramètres | ✅ Souvent |
-| **secrets.h** | `include/` | WiFi, mots de passe | ✅ Par utilisateur |
-| **config_constants.h** | `src/utils/` | Nom, version (depuis ini) | ❌ Jamais |
-| **config_state.h** | `src/utils/` | IP, SSID (runtime) | ❌ Jamais (code) |
+**Analogy**:
+- `config.h`: Game rules (fixed)
+- `config_state.h`: Current score (changes during game)
 
 ---
 
-## 🎯 Bonnes pratiques
+## 📊 Configuration Files Summary
 
-### ✅ À FAIRE
-
-- Centraliser les paramètres dans `config.h`
-- Utiliser des noms explicites (`WIFI_TIMEOUT_MS` plutôt que `TIMEOUT`)
-- Commenter les valeurs non évidentes
-- Utiliser `constexpr` pour les valeurs fixes
-
-### ❌ À ÉVITER
-
-- Hardcoder des valeurs directement dans le code
-- Modifier `board_config.h` sans raison valable
-- Pousser `secrets.h` sur un dépôt public
-- Utiliser des valeurs magiques sans nom (`delay(2000);` → pourquoi 2000 ?)
+| File | Location | Role | Modifiable |
+|------|----------|------|------------|
+| **board_config.h** | `include/` | GPIO, ports | ❌ Rarely |
+| **config.h** | `include/` | Timeouts, parameters | ✅ Often |
+| **secrets.h** | `include/` | WiFi, passwords | ✅ Per user |
+| **config_constants.h** | `src/utils/` | Name, version (from ini) | ❌ Never |
+| **config_state.h** | `src/utils/` | IP, SSID (runtime) | ❌ Never (code) |
 
 ---
 
-## 🔗 Comment tout est relié
+## 🎯 Best Practices
 
-```
-platformio.ini
-   │
-   ├─ PROJECT_NAME ──────────────┐
-   └─ PROJECT_VERSION ───────────┤
-                                 ▼
-                         config_constants.h (wrapping)
-                                 │
-                                 ▼
-                         project_info.h (alias)
-                                 │
-                                 ▼
-                         main.cpp (usage)
+### ✅ TO DO
 
+- Centralize parameters in `config.h`
+- Use explicit names (`WIFI_TIMEOUT_MS` rather than `TIMEOUT`)
+- Comment non-obvious values
+- Use `constexpr` for fixed values
 
-board_config.h ───► modules (GPIO)
-config.h ──────────► managers (timeouts)
-secrets.h ─────────► wifi_manager (credentials)
-config_state.h ────► main.cpp, oled, api (état runtime)
-```
+### ❌ TO AVOID
+
+- Hardcode values directly in code
+- Modify `board_config.h` without valid reason
+- Push `secrets.h` to a public repository
+- Use magic values without names (`delay(2000);` → why 2000?)
 
 ---
 
 ## 🎓 Conclusion
 
-Les fichiers de configuration permettent de :
-- ✅ **Séparer** la configuration du code
-- ✅ **Adapter** facilement le projet à différentes cartes
-- ✅ **Sécuriser** les identifiants sensibles
-- ✅ **Maintenir** le code facilement
+Configuration files allow to:
+- ✅ **Separate** configuration from code
+- ✅ **Adapt** project easily to different boards
+- ✅ **Secure** sensitive credentials
+- ✅ **Maintain** code easily
 
-**Règle d'or** : Quand vous hésitez entre hardcoder une valeur ou la mettre en configuration, **mettez-la en configuration** !
+**Golden rule**: When you hesitate between hardcoding a value or putting it in configuration, **put it in configuration**!
 
 ---
 
-**Fin de la documentation !** Vous avez maintenant une compréhension complète du projet. 🎉
+**End of documentation!** You now have a complete understanding of the project. 🎉

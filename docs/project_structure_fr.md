@@ -1,7 +1,7 @@
 # Structure du projet
 
 Version minimale valide : **1.0.2**
-> 📚 **Envie d'explications détaillées ?** Consultez la [documentation didactique](/learning/README.md) pour une plongée approfondie dans l'architecture !
+> 📚 **Envie d'explications détaillées ?** Consultez la [documentation didactique](/learning/README_fr.md) pour une plongée approfondie dans l'architecture !
 ## Arborescence (actuelle)
 - `src/main.cpp` : point d’entrée de l’application
 - `src/modules/`

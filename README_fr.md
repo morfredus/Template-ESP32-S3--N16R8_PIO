@@ -1,9 +1,9 @@
 # Template ESP32-S3 - Projet Pédagogique pour Débutants
 
 [![PlatformIO](https://img.shields.io/badge/PlatformIO-ESP32-orange.svg)](https://platformio.org/)
-[![Beginner Friendly](https://img.shields.io/badge/Débutant-Friendly-green.svg)](learning/README.md)
-[![Documentation](https://img.shields.io/badge/Documentation-Complète-blue.svg)](learning/README.md)
-[![C++](https://img.shields.io/badge/C%2B%2B-Explained-red.svg)](learning/03_concepts_cpp.md)
+[![Beginner Friendly](https://img.shields.io/badge/Débutant-Friendly-green.svg)](learning/README_fr.md)
+[![Documentation](https://img.shields.io/badge/Documentation-Complète-blue.svg)](learning/README_fr.md)
+[![C++](https://img.shields.io/badge/C%2B%2B-Explained-red.svg)](learning/03_concepts_cpp_fr.md)
 
 > 🎓 **Template complet avec documentation didactique ligne par ligne**  
 > Parfait pour apprendre le C++, PlatformIO et le développement embarqué sur ESP32
@@ -52,12 +52,12 @@ Un template PlatformIO **prêt à l'emploi** pour ESP32-S3 avec **documentation 
 
 Pour les débutants souhaitant **comprendre en profondeur** le fonctionnement du code et les concepts C++, une documentation complète est disponible dans le dossier `learning/` :
 
-- **Guide complet** : [`learning/README.md`](learning/README.md) - Point d'entrée avec navigation
-- Introduction au C++ : [`learning/00_introduction_cpp.md`](learning/00_introduction_cpp.md)
-- Structure du projet : [`learning/01_structure_du_projet.md`](learning/01_structure_du_projet.md)
-- Modules détaillés : [`learning/02_modules_et_leur_role.md`](learning/02_modules_et_leur_role.md)
-- Concepts C++ : [`learning/03_concepts_cpp.md`](learning/03_concepts_cpp.md)
-- Analyse de main.cpp : [`learning/04_main_explique.md`](learning/04_main_explique.md)
-- Configuration : [`learning/05_configuration.md`](learning/05_configuration.md)
+- **Guide complet** : [`learning/README_fr.md`](learning/README_fr.md) - Point d'entrée avec navigation
+- Introduction au C++ : [`learning/00_introduction_cpp_fr.md`](learning/00_introduction_cpp_fr.md)
+- Structure du projet : [`learning/01_structure_du_projet_fr.md`](learning/01_structure_du_projet_fr.md)
+- Modules détaillés : [`learning/02_modules_et_leur_role_fr.md`](learning/02_modules_et_leur_role_fr.md)
+- Concepts C++ : [`learning/03_concepts_cpp_fr.md`](learning/03_concepts_cpp_fr.md)
+- Analyse de main.cpp : [`learning/04_main_explique_fr.md`](learning/04_main_explique_fr.md)
+- Configuration : [`learning/05_configuration_fr.md`](learning/05_configuration_fr.md)
 
 Cette documentation explique **ligne par ligne** le code, les choix techniques, et les concepts utilisés, avec des analogies et exemples concrets.

@@ -1,32 +1,32 @@
-# Analyse détaillée de main.cpp
+# Detailed Analysis of main.cpp
 
-## 📄 Vue d'ensemble
+## 📄 Overview
 
-Le fichier `main.cpp` est le **point d'entrée** du programme. C'est ici que tout commence et où sont orchestrés tous les modules.
+The `main.cpp` file is the **program entry point**. This is where everything starts and where all modules are orchestrated.
 
-**Structure générale** :
+**General structure**:
 1. Includes (imports)
-2. Variables globales
-3. Fonctions utilitaires
-4. `setup()` - Initialisation
-5. `loop()` - Boucle principale
+2. Global variables
+3. Utility functions
+4. `setup()` - Initialization
+5. `loop()` - Main loop
 
 ---
 
-## 1️⃣ Section : Includes
+## 1️⃣ Section: Includes
 
-### Bibliothèques système
+### System Libraries
 
 ```cpp
 #include <Arduino.h>
 ```
 
-**Rôle** : Framework Arduino de base (Serial, delay, millis, etc.)
+**Role**: Basic Arduino framework (Serial, delay, millis, etc.)
 
-**Sans cette ligne**, vous ne pourriez pas utiliser :
+**Without this line**, you couldn't use:
 - `Serial.begin()`, `Serial.print()`
 - `delay()`, `millis()`
-- Les types de base Arduino
+- Basic Arduino types
 
 ---
 
@@ -34,13 +34,13 @@ Le fichier `main.cpp` est le **point d'entrée** du programme. C'est ici que tou
 #include <Wire.h>
 ```
 
-**Rôle** : Bibliothèque pour la communication **I2C** (Inter-Integrated Circuit)
+**Role**: Library for **I2C** communication (Inter-Integrated Circuit)
 
-**C'est quoi l'I2C ?** Un bus de communication qui permet de connecter plusieurs périphériques (écran OLED, capteurs, etc.) sur seulement 2 fils :
-- **SDA** : Serial Data (données)
-- **SCL** : Serial Clock (horloge)
+**What is I2C?** A communication bus that allows connecting multiple peripherals (OLED screen, sensors, etc.) using only 2 wires:
+- **SDA**: Serial Data (data)
+- **SCL**: Serial Clock (clock)
 
-**Dans ce projet** : Utilisé pour l'écran OLED.
+**In this project**: Used for the OLED screen.
 
 ---
 
@@ -48,14 +48,14 @@ Le fichier `main.cpp` est le **point d'entrée** du programme. C'est ici que tou
 #include <LittleFS.h>
 ```
 
-**Rôle** : Système de fichiers pour accéder aux fichiers stockés dans la mémoire flash de l'ESP32.
+**Role**: Filesystem to access files stored in ESP32's flash memory.
 
-**C'est quoi LittleFS ?**
-- Un système de fichiers léger pour microcontrôleurs
-- Stocke des fichiers (HTML, CSS, JS) dans la flash
-- Comme un mini disque dur intégré
+**What is LittleFS?**
+- A lightweight filesystem for microcontrollers
+- Stores files (HTML, CSS, JS) in flash
+- Like a mini built-in hard drive
 
-**Dans ce projet** : Sert les fichiers web (`index.html`, `style.css`) depuis la flash.
+**In this project**: Serves web files (`index.html`, `style.css`) from flash.
 
 ---
 
@@ -63,74 +63,45 @@ Le fichier `main.cpp` est le **point d'entrée** du programme. C'est ici que tou
 #include <ESPAsyncWebServer.h>
 ```
 
-**Rôle** : Bibliothèque pour créer un **serveur web asynchrone**.
+**Role**: Library to create an **asynchronous web server**.
 
-**C'est quoi "asynchrone" ?**
-- Le serveur gère les requêtes HTTP en arrière-plan
-- Pas besoin de gérer les connexions dans `loop()`
-- Plus efficace et rapide qu'un serveur synchrone
+**What is "asynchronous"?**
+- Server handles HTTP requests in the background
+- No need to manage connections in `loop()`
+- More efficient and faster than a synchronous server
 
-**Dans ce projet** : Sert la page web et l'API JSON.
+**In this project**: Serves the web page and JSON API.
 
 ---
 
-### Fichiers locaux du projet
+### Local Project Files
 
 ```cpp
 #include "board_config.h"
-```
-
-**Rôle** : Définitions des broches GPIO et paramètres matériels.
-
-**Contenu** :
-```cpp
-#define OLED_SDA_PIN 15
-#define OLED_SCL_PIN 16
-#define NEOPIXEL_PIN 48
-#define WEB_SERVER_PORT 80
-```
-
----
-
-```cpp
 #include "managers/wifi_manager/wifi_manager.h"
-```
-
-**Rôle** : Inclut la classe `WifiManager` pour gérer la connexion WiFi.
-
----
-
-```cpp
 #include "modules/oled_display/oled_display.h"
 #include "modules/neopixel_status/neopixel_status.h"
 #include "modules/psram_info/psram_info.h"
-```
-
-**Rôle** : Inclut les classes des modules matériels (écran, LED, PSRAM).
-
----
-
-```cpp
 #include "utils/config_state.h"
 #include "utils/project_info.h"
 ```
 
-**Rôle** : Inclut les utilitaires (état global, infos projet).
+**Role**: Include classes and definitions from project modules.
 
 ---
 
-## 2️⃣ Section : Variables globales
+## 2️⃣ Section: Global Variables
 
 ```cpp
 AsyncWebServer server(WEB_SERVER_PORT);
 ```
 
-**Explication** :
-- Crée un objet `server` de type `AsyncWebServer`
-- `WEB_SERVER_PORT` : constante définie dans `board_config.h` (80 = port HTTP standard)
-- Variable **globale** : accessible partout dans le fichier
+**Explanation**:
+- Creates a `server` object of type `AsyncWebServer`
+- `WEB_SERVER_PORT`: constant defined in `board_config.h` (80 = standard HTTP port)
+- **Global** variable: accessible throughout the file
 
-**Pourquoi global ?** Le serveur doit vivre pendant toute la durée du programme et être accessible dans plusieurs fonctions.
+**Why global?** The server must live for the entire duration of the program and be accessible in multiple functions.
 
 ---
 
@@ -139,62 +110,50 @@ NeoPixelStatus pixel;
 OledDisplay oled;
 ```
 
-**Explication** :
-- Crée deux objets globaux : `pixel` et `oled`
-- Instances des classes `NeoPixelStatus` et `OledDisplay`
+**Explanation**:
+- Creates two global objects: `pixel` and `oled`
+- Instances of `NeoPixelStatus` and `OledDisplay` classes
 
-**Pourquoi global ?**
-- Utilisés dans `setup()` pour l'initialisation
-- Passés en référence à `WifiManager`
-- Doivent persister pendant toute la durée du programme
+**Why global?**
+- Used in `setup()` for initialization
+- Passed by reference to `WifiManager`
+- Must persist for the entire program duration
 
 ---
 
-## 3️⃣ Fonction : buildInfoJson()
+## 3️⃣ Function: buildInfoJson()
 
 ```cpp
 static String buildInfoJson() {
 ```
 
-**Rôle** : Construit une chaîne JSON contenant les informations du système.
+**Role**: Builds a JSON string containing system information.
 
-**`static`** : La fonction est **privée** au fichier, elle n'est pas accessible depuis d'autres fichiers.
+**`static`**: The function is **private** to the file, not accessible from other files.
 
 ---
 
-### Initialisation du buffer JSON
+### JSON Buffer Initialization
 
 ```cpp
 String json;
 json.reserve(1024);
 ```
 
-**Explication** :
-- Crée une chaîne vide `json`
-- `reserve(1024)` : **préalloue** 1024 octets de mémoire
+**Explanation**:
+- Creates an empty string `json`
+- `reserve(1024)`: **preallocates** 1024 bytes of memory
 
-**Pourquoi `reserve()` ?**
-- ✅ Optimisation : évite de réallouer la mémoire plusieurs fois
-- ✅ Performance : concaténation plus rapide
-- ✅ Stabilité : réduit la fragmentation mémoire
+**Why `reserve()`?**
+- ✅ Optimization: avoids reallocating memory multiple times
+- ✅ Performance: faster concatenation
+- ✅ Stability: reduces memory fragmentation
 
-**Analogie** : Comme réserver une grande feuille blanche plutôt que d'ajouter des feuilles au fur et à mesure.
-
----
-
-### Récupération des infos PSRAM
-
-```cpp
-PsramInfo ps = getPsramInfo();
-```
-
-**Explication** :
-- Appelle la fonction `getPsramInfo()` du module psram_info
-- Retourne une structure `PsramInfo` contenant toutes les infos
+**Analogy**: Like reserving a large blank sheet instead of adding sheets as you go.
 
 ---
 
-### Construction du JSON
+### Building the JSON
 
 ```cpp
 json += "{";
@@ -202,160 +161,83 @@ json += "{";
 json += "\"project\":{";
 json += "\"name\":\"";    json += ProjectInfo::NAME.data();    json += "\",";
 json += "\"version\":\""; json += ProjectInfo::VERSION.data(); json += "\"},";
+
+json += "\"wifi\":{";
+json += "\"ssid\":\""; json += ConfigState::instance().ssid().c_str(); json += "\",";
+json += "\"ip\":\"";   json += ConfigState::instance().ip().c_str();   json += "\"},";
+
+// ... PSRAM and board info
+
+json += "}";
+return json;
 ```
 
-**Explication** :
-- `+=` : concatène (ajoute à la fin)
-- `\"` : guillemet échappé (pour avoir `"` dans la chaîne)
-- `ProjectInfo::NAME.data()` : récupère le nom du projet (défini dans platformio.ini)
-
-**Résultat** :
+**Result example**:
 ```json
 {
   "project": {
     "name": "Template-ESP32-S3",
     "version": "1.0.0"
   },
-```
-
----
-
-```cpp
-json += "\"wifi\":{";
-json += "\"ssid\":\""; json += ConfigState::instance().ssid().c_str(); json += "\",";
-json += "\"ip\":\"";   json += ConfigState::instance().ip().c_str();   json += "\"},";
-```
-
-**Explication** :
-- `ConfigState::instance()` : récupère l'instance unique du singleton
-- `.ssid()` : récupère le SSID WiFi connecté
-- `.c_str()` : convertit `std::string` en `const char*` (format C)
-
-**Résultat** :
-```json
   "wifi": {
-    "ssid": "MonReseauWiFi",
+    "ssid": "MyWiFi",
     "ip": "192.168.1.42"
   },
-```
-
----
-
-```cpp
-json += "\"psram\":{";
-json += "\"enabled\":"; json += ps.enabled ? "true" : "false"; json += ",";
-json += "\"total\":";   json += String(ps.totalBytes); json += ",";
-json += "\"free\":";    json += String(ps.freeBytes);  json += ",";
-json += "\"type\":\"";  json += ps.type;               json += "\",";
-json += "\"mode\":\"";  json += ps.mode;               json += "\",";
-json += "\"speed\":\""; json += ps.speed;              json += "\"";
-json += "},";
-```
-
-**Explication** :
-- `ps.enabled ? "true" : "false"` : **opérateur ternaire** (if compact)
-  - Si `ps.enabled` est vrai → ajoute `"true"`
-  - Sinon → ajoute `"false"`
-- `String(ps.totalBytes)` : convertit le nombre en chaîne
-
-**Résultat** :
-```json
   "psram": {
     "enabled": true,
     "total": 8388608,
-    "free": 7234567,
-    "type": "OPI (8MB)",
-    "mode": "8-line",
-    "speed": "80MHz"
+    "free": 7234567
   },
-```
-
----
-
-```cpp
-json += "\"board\":{";
-json += "\"flash_bytes\":"; json += String(ESP.getFlashChipSize()); json += ",";
-json += "\"heap_free\":";   json += String(ESP.getFreeHeap());      json += ",";
-json += "\"chip_revision\":"; json += String(ESP.getChipRevision());
-json += "}";
-```
-
-**Explication** :
-- `ESP.getFlashChipSize()` : taille de la mémoire flash
-- `ESP.getFreeHeap()` : mémoire heap libre (RAM interne)
-- `ESP.getChipRevision()` : révision du chip ESP32
-
-**Résultat** :
-```json
   "board": {
     "flash_bytes": 16777216,
-    "heap_free": 245632,
-    "chip_revision": 1
+    "heap_free": 245632
   }
 }
 ```
 
 ---
 
-```cpp
-json += "}";
-return json;
-```
+## 4️⃣ Function: setup()
 
-**Explication** :
-- Ferme l'objet JSON racine
-- Retourne la chaîne JSON complète
-
----
-
-## 4️⃣ Fonction : setup()
-
-### 🎬 Initialisation du Serial
+### 🎬 Serial Initialization
 
 ```cpp
 Serial.begin(115200);
 delay(200);
 ```
 
-**Explication** :
-- `Serial.begin(115200)` : Initialise la communication série à 115200 bauds
-- `delay(200)` : Attend 200 ms pour stabiliser la connexion série
+**Explanation**:
+- `Serial.begin(115200)`: Initialize serial communication at 115200 bauds
+- `delay(200)`: Wait 200 ms to stabilize serial connection
 
-**Pourquoi 115200 ?** C'est un débit courant pour l'ESP32, assez rapide pour déboguer.
-
-**Pourquoi `delay(200)` ?** Certains moniteurs série ont besoin d'un délai pour se synchroniser.
+**Why 115200?** Common baud rate for ESP32, fast enough for debugging.
 
 ---
 
-### 💡 Initialisation du NeoPixel
+### 💡 NeoPixel Initialization
 
 ```cpp
 pixel.begin();
 ```
 
-**Explication** :
-- Appelle la méthode `begin()` de l'objet `pixel`
-- Initialise la LED NeoPixel et la met en mode "Idle" (blanc)
-
-**Que se passe-t-il ?**
-- Configure la broche GPIO 48
-- Définit la luminosité
-- Affiche la couleur par défaut
+**Explanation**:
+- Calls the `begin()` method of the `pixel` object
+- Initializes the NeoPixel LED and sets it to "Idle" mode (white)
 
 ---
 
-### 🖥️ Initialisation de l'écran OLED
+### 🖥️ OLED Screen Initialization
 
 ```cpp
 Wire.begin(OLED_SDA_PIN, OLED_SCL_PIN);
 ```
 
-**Explication** :
-- Initialise le bus I2C avec les broches définies dans `board_config.h`
-- `OLED_SDA_PIN = 15` : broche de données
-- `OLED_SCL_PIN = 16` : broche d'horloge
+**Explanation**:
+- Initializes the I2C bus with pins defined in `board_config.h`
+- `OLED_SDA_PIN = 15`: data pin
+- `OLED_SCL_PIN = 16`: clock pin
 
-**Pourquoi avant `oled.begin()` ?** Le bus I2C doit être initialisé avant de pouvoir communiquer avec l'écran.
+**Why before `oled.begin()`?** The I2C bus must be initialized before communicating with the screen.
 
 ---
 
@@ -366,30 +248,30 @@ if (!oled.begin()) {
 }
 ```
 
-**Explication** :
-- Tente d'initialiser l'écran OLED
-- `!oled.begin()` : si l'initialisation échoue (retourne `false`)
-- Change la LED en **violet** (erreur application)
-- **Boucle infinie** : le programme s'arrête là
+**Explanation**:
+- Attempts to initialize the OLED screen
+- `!oled.begin()`: if initialization fails (returns `false`)
+- Changes LED to **purple** (application error)
+- **Infinite loop**: the program stops here
 
-**Pourquoi une boucle infinie ?** Sans écran, impossible de continuer. Mieux vaut arrêter proprement que de crasher.
+**Why an infinite loop?** Without a screen, impossible to continue. Better to stop cleanly than to crash.
 
 ---
 
-### 🎨 Écran de démarrage (splash)
+### 🎨 Startup Screen (Splash)
 
 ```cpp
 oled.splash();
 delay(2000);
 ```
 
-**Explication** :
-- Affiche l'écran de démarrage (nom du projet + version)
-- Attend 2000 ms (2 secondes) pour que l'utilisateur le voie
+**Explanation**:
+- Displays the startup screen (project name + version)
+- Waits 2000 ms (2 seconds) for the user to see it
 
 ---
 
-### 📡 Connexion WiFi
+### 📡 WiFi Connection
 
 ```cpp
 WifiManager wifi(pixel, oled);
@@ -400,32 +282,32 @@ if (!ok) {
 }
 ```
 
-**Explication** :
-1. Crée un objet `wifi` de type `WifiManager`
-2. Passe les références `pixel` et `oled` au constructeur
-3. Appelle `connect()` pour se connecter au WiFi
-4. Si échec (`ok == false`), **sort de `setup()`**
+**Explanation**:
+1. Creates a `wifi` object of type `WifiManager`
+2. Passes references `pixel` and `oled` to the constructor
+3. Calls `connect()` to connect to WiFi
+4. If failure (`ok == false`), **exits `setup()`**
 
-**Que se passe-t-il en cas d'échec ?**
-- `return;` sort de `setup()`
-- Le programme passe à `loop()`
-- Comme `loop()` est vide, rien ne se passe → LED rouge reste allumée
+**What happens on failure?**
+- `return;` exits `setup()`
+- Program moves to `loop()`
+- Since `loop()` is empty, nothing happens → red LED stays lit
 
 ---
 
-### 📊 Affichage de l'écran principal
+### 📊 Main Screen Display
 
 ```cpp
 oled.mainScreen();
 ```
 
-**Explication** :
-- Affiche l'écran principal avec le SSID et l'IP
-- Appelé uniquement si la connexion WiFi a réussi
+**Explanation**:
+- Displays the main screen with SSID and IP
+- Called only if WiFi connection succeeded
 
 ---
 
-### 📦 Initialisation du système de fichiers
+### 📦 Filesystem Initialization
 
 ```cpp
 if (!LittleFS.begin(true)) {
@@ -434,30 +316,28 @@ if (!LittleFS.begin(true)) {
 }
 ```
 
-**Explication** :
-- `LittleFS.begin(true)` : monte le système de fichiers
-  - `true` : formater si nécessaire (première utilisation)
-- Si échec, LED en violet (erreur app) et sortie
+**Explanation**:
+- `LittleFS.begin(true)`: mounts the filesystem
+  - `true`: format if necessary (first use)
+- If failure, LED purple (app error) and exit
 
-**Pourquoi ?** Sans système de fichiers, impossible de servir les pages web.
+**Why?** Without filesystem, impossible to serve web pages.
 
 ---
 
-### 🌐 Configuration du serveur web
+### 🌐 Web Server Configuration
 
 ```cpp
 server.serveStatic("/", LittleFS, "/").setDefaultFile("index.html");
 ```
 
-**Explication** :
-- `serveStatic("/", LittleFS, "/")` : sert les fichiers du dossier racine `/` de LittleFS
-- `.setDefaultFile("index.html")` : si on accède à `/`, servir `index.html`
+**Explanation**:
+- `serveStatic("/", LittleFS, "/")`: serve files from root folder `/` of LittleFS
+- `.setDefaultFile("index.html")`: if accessing `/`, serve `index.html`
 
-**Analogie** : Comme configurer Apache ou Nginx pour servir un site web statique.
-
-**Que se passe-t-il ?**
-- Requête `http://192.168.1.42/` → répond avec `index.html`
-- Requête `http://192.168.1.42/style.css` → répond avec `style.css`
+**What happens?**
+- Request `http://192.168.1.42/` → responds with `index.html`
+- Request `http://192.168.1.42/style.css` → responds with `style.css`
 
 ---
 
@@ -467,24 +347,21 @@ server.on("/api/info", HTTP_GET, [](AsyncWebServerRequest* request) {
 });
 ```
 
-**Explication** :
-- `server.on()` : définit un **endpoint** (point d'accès)
-- `"/api/info"` : URL de l'endpoint
-- `HTTP_GET` : méthode HTTP GET
-- `[](...) { ... }` : **lambda** (fonction anonyme)
+**Explanation**:
+- `server.on()`: defines an **endpoint** (access point)
+- `"/api/info"`: endpoint URL
+- `HTTP_GET`: HTTP GET method
+- `[](...) { ... }`: **lambda** (anonymous function)
 
-**C'est quoi une lambda ?**
-- Une fonction sans nom, définie directement
-- Ici, elle est appelée quand on accède à `/api/info`
+**What is a lambda?**
+- A function without a name, defined directly
+- Here, it's called when accessing `/api/info`
 
-**Que fait la lambda ?**
+**What does the lambda do?**
 - `request->send(200, "application/json", buildInfoJson())`
-  - Code 200 : HTTP OK
-  - Type MIME : `application/json`
-  - Contenu : le JSON construit par `buildInfoJson()`
-
-**Utilisation** :
-- Requête `http://192.168.1.42/api/info` → répond avec les infos en JSON
+  - Code 200: HTTP OK
+  - MIME type: `application/json`
+  - Content: JSON built by `buildInfoJson()`
 
 ---
 
@@ -492,91 +369,67 @@ server.on("/api/info", HTTP_GET, [](AsyncWebServerRequest* request) {
 server.begin();
 ```
 
-**Explication** :
-- Démarre le serveur web
-- À partir de ce moment, le serveur écoute sur le port 80
+**Explanation**:
+- Starts the web server
+- From this moment, server listens on port 80
 
 ---
 
-## 5️⃣ Fonction : loop()
+## 5️⃣ Function: loop()
 
 ```cpp
 void loop() {
-    // AsyncWebServer → loop vide
+    // AsyncWebServer → empty loop
 }
 ```
 
-**Explication** :
-- La fonction `loop()` est **vide** !
-- C'est normal : le serveur web asynchrone gère tout en arrière-plan
+**Explanation**:
+- The `loop()` function is **empty**!
+- This is normal: the asynchronous web server handles everything in the background
 
-**Comment ça marche ?**
-- `ESPAsyncWebServer` utilise des interruptions et des tâches FreeRTOS
-- Les requêtes HTTP sont traitées automatiquement
-- Pas besoin de code dans `loop()`
+**How does it work?**
+- `ESPAsyncWebServer` uses interrupts and FreeRTOS tasks
+- HTTP requests are handled automatically
+- No code needed in `loop()`
 
-**Analogie** : Comme un serveur web Apache qui tourne en background, pas besoin de le surveiller.
+**Analogy**: Like an Apache web server running in the background, no need to monitor it.
 
 ---
 
-## 📊 Flux d'exécution complet
+## 📊 Complete Execution Flow
 
 ```
 ┌─────────────────────────────┐
-│  Démarrage ESP32            │
+│  ESP32 Startup              │
 └──────────┬──────────────────┘
            ▼
 ┌─────────────────────────────┐
 │  setup()                    │
-│  ├─ Serial.begin()          │ ← Initialiser communication série
-│  ├─ pixel.begin()           │ ← Initialiser LED
-│  ├─ Wire.begin()            │ ← Initialiser bus I2C
-│  ├─ oled.begin()            │ ← Initialiser écran OLED
-│  ├─ oled.splash()           │ ← Afficher écran de démarrage
-│  │   └─ delay(2000)         │ ← Attendre 2 secondes
-│  ├─ wifi.connect()          │ ← Connecter au WiFi
-│  │   ├─ Scan réseau         │
-│  │   ├─ Connexion           │
-│  │   └─ Enregistrer IP      │
-│  ├─ oled.mainScreen()       │ ← Afficher écran principal
-│  ├─ LittleFS.begin()        │ ← Monter système de fichiers
-│  ├─ server.serveStatic()    │ ← Configurer serveur (fichiers)
-│  ├─ server.on("/api/info")  │ ← Configurer API JSON
-│  └─ server.begin()          │ ← Démarrer serveur web
+│  ├─ Serial.begin()          │ ← Initialize serial communication
+│  ├─ pixel.begin()           │ ← Initialize LED
+│  ├─ Wire.begin()            │ ← Initialize I2C bus
+│  ├─ oled.begin()            │ ← Initialize OLED screen
+│  ├─ oled.splash()           │ ← Display startup screen
+│  │   └─ delay(2000)         │ ← Wait 2 seconds
+│  ├─ wifi.connect()          │ ← Connect to WiFi
+│  │   ├─ Network scan        │
+│  │   ├─ Connection          │
+│  │   └─ Save IP             │
+│  ├─ oled.mainScreen()       │ ← Display main screen
+│  ├─ LittleFS.begin()        │ ← Mount filesystem
+│  ├─ server.serveStatic()    │ ← Configure server (files)
+│  ├─ server.on("/api/info")  │ ← Configure JSON API
+│  └─ server.begin()          │ ← Start web server
 └──────────┬──────────────────┘
            ▼
 ┌─────────────────────────────┐
-│  loop()                     │ ← Boucle vide (serveur asynchrone)
-│  (vide)                     │
+│  loop()                     │ ← Empty loop (async server)
+│  (empty)                    │
 └──────────┬──────────────────┘
            │
-           └─────────► Répétition infinie
+           └─────────► Infinite repetition
 ```
 
 ---
 
-## 🎯 Points clés à retenir
-
-### Variables globales
-- `server` : serveur web qui vit pendant tout le programme
-- `pixel`, `oled` : objets matériels utilisés dans plusieurs fonctions
-
-### Fonction `buildInfoJson()`
-- Construit un JSON avec les infos système
-- Utilisé par l'endpoint `/api/info`
-- Optimisé avec `reserve()` pour éviter les réallocations
-
-### Fonction `setup()`
-1. **Initialisation** : Serial, LED, écran
-2. **Connexion WiFi** : avec feedback visuel (LED + écran)
-3. **Montage filesystem** : pour servir les fichiers web
-4. **Configuration serveur** : fichiers statiques + API JSON
-5. **Démarrage serveur** : écoute sur port 80
-
-### Fonction `loop()`
-- Vide car serveur asynchrone
-- Le serveur gère les requêtes automatiquement en arrière-plan
-
----
-
-**Prochaine étape** : Lisez `05_configuration.md` pour comprendre les fichiers de configuration (GPIO, timeouts, secrets).
+**Next step**: Read `05_configuration_en.md` to understand configuration files (GPIO, timeouts, secrets).

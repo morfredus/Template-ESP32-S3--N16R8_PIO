@@ -2,7 +2,7 @@
 
 Minimum valid version: **1.0.2**
 
-> 📚 **New to C++ or ESP32?** Check out the [educational documentation](/learning/README_en.md) for in-depth explanations!
+> 📚 **New to C++ or ESP32?** Check out the [educational documentation](/learning/README.md) for in-depth explanations!
 
 ## Main features
 - Multi-credential Wi-Fi connection attempts

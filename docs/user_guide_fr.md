@@ -2,7 +2,7 @@
 
 Version minimale valide : **1.0.2**
 
-> 📚 **Débutant en C++ ou ESP32 ?** Consultez la [documentation didactique](/learning/README.md) pour des explications détaillées !
+> 📚 **Débutant en C++ ou ESP32 ?** Consultez la [documentation didactique](/learning/README_fr.md) pour des explications détaillées !
 
 ## Fonctions principales
 - Tentatives de connexion Wi-Fi avec plusieurs identifiants

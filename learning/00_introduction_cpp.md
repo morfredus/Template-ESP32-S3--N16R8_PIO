@@ -1,112 +1,112 @@
-# Introduction au C++ et à ce projet ESP32
+# Introduction to C++ and this ESP32 Project
 
-## 📘 Qu'est-ce que le C++ ?
+## 📘 What is C++?
 
-Le **C++** est un langage de programmation compilé, c'est-à-dire que votre code est transformé en instructions machine avant d'être exécuté. C'est différent des langages interprétés comme Python.
+**C++** is a compiled programming language, meaning your code is transformed into machine instructions before being executed. This is different from interpreted languages like Python.
 
-### Pourquoi le C++ pour l'ESP32 ?
+### Why C++ for ESP32?
 
-1. **Performance** : Le C++ est très rapide car il communique directement avec le matériel
-2. **Contrôle** : Vous gérez précisément la mémoire et les ressources
-3. **Arduino Framework** : Une couche simplifiée qui rend le C++ plus accessible pour les microcontrôleurs
+1. **Performance**: C++ is very fast because it communicates directly with hardware
+2. **Control**: You precisely manage memory and resources
+3. **Arduino Framework**: A simplified layer that makes C++ more accessible for microcontrollers
 
-## 🎯 Ce que fait ce projet
+## 🎯 What This Project Does
 
-Ce projet est un **template** (modèle) pour démarrer rapidement avec un ESP32-S3. Il inclut :
+This project is a **template** (model) to quickly start with an ESP32-S3. It includes:
 
-- ✅ Connexion WiFi automatique
-- ✅ Serveur web pour afficher des informations
-- ✅ Écran OLED pour l'affichage local
-- ✅ LED NeoPixel pour indiquer l'état
-- ✅ Gestion de la mémoire PSRAM
+- ✅ Automatic WiFi connection
+- ✅ Web server to display information
+- ✅ OLED screen for local display
+- ✅ NeoPixel LED for status indication
+- ✅ PSRAM memory management
 
-## 📁 Concepts de base à connaître
+## 📁 Basic Concepts to Know
 
-### 1. Les fichiers `.h` (headers)
+### 1. `.h` Files (Headers)
 
-Les fichiers `.h` sont comme des **sommaires** ou des **tables des matières**. Ils déclarent ce qui existe (fonctions, classes, constantes) mais ne contiennent généralement pas l'implémentation complète.
+`.h` files are like **summaries** or **tables of contents**. They declare what exists (functions, classes, constants) but generally don't contain the complete implementation.
 
-**Pourquoi ?** Cela permet à d'autres fichiers de savoir ce qui est disponible sans avoir besoin de tout le code.
+**Why?** This allows other files to know what's available without needing all the code.
 
-### 2. Les fichiers `.cpp` (source)
+### 2. `.cpp` Files (Source)
 
-Les fichiers `.cpp` contiennent l'**implémentation réelle** du code, c'est-à-dire comment les choses fonctionnent.
+`.cpp` files contain the **actual implementation** of the code, i.e., how things work.
 
-### 3. L'include (#include)
+### 3. The include (#include)
 
 ```cpp
 #include "wifi_manager.h"
 ```
 
-Cette ligne dit : "Je vais utiliser des choses définies dans wifi_manager.h, va chercher ce fichier et intègre-le ici."
+This line says: "I'm going to use things defined in wifi_manager.h, go fetch this file and integrate it here."
 
-### 4. Les classes
+### 4. Classes
 
-Une **classe** est un modèle pour créer des objets. C'est comme un plan de construction.
+A **class** is a template for creating objects. It's like a construction blueprint.
 
 ```cpp
 class WifiManager {
-    // Déclaration : ce que peut faire un WifiManager
+    // Declaration: what a WifiManager can do
 };
 ```
 
-### 5. Les namespaces
+### 5. Namespaces
 
-Un **namespace** est comme un dossier pour organiser le code et éviter les conflits de noms.
+A **namespace** is like a folder to organize code and avoid name conflicts.
 
 ```cpp
 namespace Config {
     constexpr uint32_t WIFI_TIMEOUT = 20000;
 }
-// Pour l'utiliser : Config::WIFI_TIMEOUT
+// To use it: Config::WIFI_TIMEOUT
 ```
 
-## 🔄 Le cycle de vie d'un programme ESP32
+## 🔄 ESP32 Program Lifecycle
 
 ```
 ┌─────────────────┐
-│   Démarrage     │
+│   Startup       │
 │   (power on)    │
 └────────┬────────┘
          │
          ▼
 ┌─────────────────┐
-│   setup()       │ ← Exécuté UNE SEULE FOIS au démarrage
-│                 │   (initialisation du WiFi, écran, etc.)
+│   setup()       │ ← Executed ONCE at startup
+│                 │   (WiFi initialization, screen, etc.)
 └────────┬────────┘
          │
          ▼
 ┌─────────────────┐
-│   loop()        │ ← Exécuté EN BOUCLE indéfiniment
-│                 │   (gestion des événements, mise à jour)
+│   loop()        │ ← Executed in an INFINITE LOOP
+│                 │   (event handling, updates)
 └────────┬────────┘
          │
-         └──────────► Retour au début de loop()
+         └──────────► Return to beginning of loop()
 ```
 
-**Important** : Dans ce projet, `loop()` est vide car nous utilisons un serveur web asynchrone qui gère les requêtes automatiquement !
+**Important**: In this project, `loop()` is empty because we use an asynchronous web server that handles requests automatically!
 
-## 🧩 Organisation du code
+## 🧩 Code Organization
 
-### Approche modulaire
+### Modular Approach
 
-Au lieu de mettre tout le code dans un seul gros fichier, nous le **découpons en modules** :
+Instead of putting all code in one big file, we **split it into modules**:
 
-- Chaque module a une responsabilité claire
-- Les modules sont réutilisables
-- Le code est plus facile à comprendre et maintenir
+- Each module has a clear responsibility
+- Modules are reusable
+- Code is easier to understand and maintain
 
-**Analogie** : C'est comme construire une maison avec des pièces séparées (cuisine, chambre, salon) plutôt qu'un grand espace ouvert sans murs.
+**Analogy**: It's like building a house with separate rooms (kitchen, bedroom, living room) rather than one big open space without walls.
 
-## 📚 Structure de ce guide
+## 📚 Guide Structure
 
-1. **00_introduction_cpp.md** ← Vous êtes ici
-2. **01_structure_du_projet.md** - Organisation des dossiers
-3. **02_modules_et_leur_role.md** - Détail de chaque module
-4. **03_concepts_cpp.md** - Les concepts C++ utilisés
-5. **04_main_explique.md** - Analyse ligne par ligne du programme principal
-6. **05_configuration.md** - Les fichiers de configuration
+1. **00_introduction_cpp_en.md** ← You are here
+2. **01_structure_du_projet_en.md** - Folder organization
+3. **02_modules_et_leur_role_en.md** - Detail of each module
+4. **03_concepts_cpp_en.md** - C++ concepts used
+5. **04_main_explique_en.md** - Line-by-line analysis of main program
+6. **05_configuration_en.md** - Configuration files
 
 ---
 
-**Prochaine étape** : Lisez `01_structure_du_projet.md` pour comprendre comment le projet est organisé.
+**Next step**: Read `01_structure_du_projet_en.md` to understand how the project is organized.

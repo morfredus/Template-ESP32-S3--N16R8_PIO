@@ -2,7 +2,7 @@
 
 Minimum valid version: **1.0.2**
 
-> 📚 **Want detailed explanations?** See the [educational documentation](/learning/README_en.md) for a deep dive into project architecture!
+> 📚 **Want detailed explanations?** See the [educational documentation](/learning/README.md) for a deep dive into project architecture!
 
 ## Directory tree (current)
 - `src/main.cpp`: application entry point

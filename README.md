@@ -62,4 +62,4 @@ For beginners who want to **deeply understand** how the code works and grasp C++
 
 This documentation explains the code **line by line**, technical choices, and concepts used, with analogies and concrete examples.
 
-**Note**: Documentation is currently available in French only.
+**Note**: Learning documentation is also available in French with `_fr.md` suffix.

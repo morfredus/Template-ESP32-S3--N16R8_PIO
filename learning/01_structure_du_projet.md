@@ -1,145 +1,148 @@
-# Structure du projet ESP32
+# ESP32 Project Structure
 
-## 📂 Vue d'ensemble
+## 📂 Overview
 
 ```
 Template-ESP32-S3--N16R8_PIO/
 │
-├── 📁 src/                    ← CODE SOURCE PRINCIPAL
-│   ├── main.cpp               ← Point d'entrée du programme
-│   ├── managers/              ← Gestionnaires de haut niveau
-│   ├── modules/               ← Modules matériels (écran, LED, etc.)
-│   └── utils/                 ← Utilitaires et helpers
+├── 📁 src/                    ← MAIN SOURCE CODE
+│   ├── main.cpp               ← Program entry point
+│   ├── managers/              ← High-level managers
+│   ├── modules/               ← Hardware modules (screen, LED, etc.)
+│   └── utils/                 ← Utilities and helpers
 │
-├── 📁 include/                ← FICHIERS DE CONFIGURATION
-│   ├── board_config.h         ← Configuration des broches GPIO
-│   ├── config.h               ← Configuration générale
-│   └── secrets.h              ← Identifiants WiFi (NE PAS PARTAGER)
+├── 📁 include/                ← CONFIGURATION FILES
+│   ├── board_config.h         ← GPIO pin configuration
+│   ├── config.h               ← General configuration
+│   └── secrets.h              ← WiFi credentials (DO NOT SHARE)
 │
-├── 📁 data/                   ← FICHIERS WEB (HTML, CSS, JS)
-│   ├── index.html             ← Page web servie par l'ESP32
-│   └── style.css              ← Styles de la page web
+├── 📁 data/                   ← WEB FILES (HTML, CSS, JS)
+│   ├── index.html             ← Web page served by ESP32
+│   └── style.css              ← Page styles
 │
-├── 📁 docs/                   ← DOCUMENTATION UTILISATEUR
-│   └── (guides, manuels)
+├── 📁 docs/                   ← USER DOCUMENTATION
+│   └── (guides, manuals)
 │
-├── 📁 lib/                    ← BIBLIOTHÈQUES LOCALES (si besoin)
+├── 📁 learning/               ← EDUCATIONAL DOCUMENTATION
+│   └── (detailed C++ guides)
 │
-├── 📁 scripts/                ← SCRIPTS PYTHON UTILITAIRES
-│   └── auto_fs.py             ← Upload automatique du système de fichiers
+├── 📁 lib/                    ← LOCAL LIBRARIES (if needed)
 │
-├── 📁 test/                   ← TESTS UNITAIRES
+├── 📁 scripts/                ← PYTHON UTILITY SCRIPTS
+│   └── auto_fs.py             ← Automatic filesystem upload
 │
-├── platformio.ini             ← Configuration PlatformIO
-└── README.md                  ← Documentation du projet
+├── 📁 test/                   ← UNIT TESTS
+│
+├── platformio.ini             ← PlatformIO configuration
+└── README.md                  ← Project documentation
 ```
 
 ---
 
-## 🎯 Le dossier `src/` (code source)
+## 🎯 The `src/` Folder (Source Code)
 
-C'est **le cœur du programme**. Tout le code C++ est ici.
+This is **the heart of the program**. All C++ code is here.
 
 ### 📄 main.cpp
 
-**Rôle** : Point d'entrée du programme, orchestre tous les modules.
+**Role**: Program entry point, orchestrates all modules.
 
-**Contient** :
-- `setup()` : Fonction d'initialisation (exécutée une fois)
-- `loop()` : Fonction de boucle principale (dans ce projet, elle est vide)
+**Contains**:
+- `setup()`: Initialization function (executed once)
+- `loop()`: Main loop function (in this project, it's empty)
 
-**Analogie** : C'est le chef d'orchestre qui fait jouer tous les musiciens au bon moment.
+**Analogy**: It's the conductor who makes all musicians play at the right time.
 
 ---
 
-### 📁 managers/ (gestionnaires)
+### 📁 managers/ (Managers)
 
-Les **managers** sont responsables de **coordonner plusieurs modules** pour accomplir une tâche complexe.
+**Managers** are responsible for **coordinating multiple modules** to accomplish a complex task.
 
 #### wifi_manager/
 
 ```
 wifi_manager/
-├── wifi_manager.h      ← Déclaration de la classe WifiManager
-└── wifi_manager.cpp    ← Implémentation
+├── wifi_manager.h      ← WifiManager class declaration
+└── wifi_manager.cpp    ← Implementation
 ```
 
-**Rôle** : Gérer la connexion WiFi.
+**Role**: Manage WiFi connection.
 
-**Pourquoi un manager ?** Connecter le WiFi implique :
-- Interagir avec le pixel (afficher l'état)
-- Interagir avec l'écran OLED (afficher la progression)
-- Gérer les tentatives de connexion
-- Enregistrer l'état dans ConfigState
+**Why a manager?** Connecting to WiFi involves:
+- Interacting with the pixel (display status)
+- Interacting with the OLED screen (display progress)
+- Managing connection attempts
+- Saving state in ConfigState
 
-C'est un **orchestrateur** qui utilise plusieurs modules.
+It's an **orchestrator** that uses multiple modules.
 
 ---
 
-### 📁 modules/ (modules matériels)
+### 📁 modules/ (Hardware Modules)
 
-Les **modules** sont des composants **autonomes** qui contrôlent un élément matériel spécifique.
+**Modules** are **autonomous** components that control a specific hardware element.
 
 #### neopixel_status/
 
 ```
 neopixel_status/
-├── neopixel_status.h      ← Déclaration
-└── neopixel_status.cpp    ← Implémentation
+├── neopixel_status.h      ← Declaration
+└── neopixel_status.cpp    ← Implementation
 ```
 
-**Rôle** : Contrôler la LED NeoPixel intégrée pour afficher l'état du système.
+**Role**: Control the built-in NeoPixel LED to display system status.
 
-**Fonctionnalités** :
-- `begin()` : Initialiser la LED
-- `set(StatusColor)` : Changer la couleur selon l'état
+**Features**:
+- `begin()`: Initialize LED
+- `set(StatusColor)`: Change color based on status
 
-**Pourquoi un module ?** La LED est un composant matériel qui peut être réutilisé dans d'autres projets.
+**Why a module?** The LED is a hardware component that can be reused in other projects.
 
 #### oled_display/
 
 ```
 oled_display/
-├── oled_display.h      ← Déclaration
-└── oled_display.cpp    ← Implémentation
+├── oled_display.h      ← Declaration
+└── oled_display.cpp    ← Implementation
 ```
 
-**Rôle** : Contrôler l'écran OLED SSD1306 128x64.
+**Role**: Control the SSD1306 OLED screen (128x64).
 
-**Fonctionnalités** :
-- `begin()` : Initialiser l'écran
-- `splash()` : Afficher l'écran de démarrage
-- `wifiProgress(float)` : Afficher la progression de connexion WiFi
-- `mainScreen()` : Afficher l'écran principal avec IP
+**Features**:
+- `begin()`: Initialize screen
+- `splash()`: Display startup screen
+- `wifiProgress(float)`: Display WiFi connection progress
+- `mainScreen()`: Display main screen with IP
 
-**Pourquoi un module ?** L'écran OLED est un composant matériel réutilisable.
+**Why a module?** The OLED screen is a reusable hardware component.
 
 #### psram_info/
 
 ```
 psram_info/
-├── psram_info.h      ← Déclaration
-└── psram_info.cpp    ← Implémentation
+├── psram_info.h      ← Declaration
+└── psram_info.cpp    ← Implementation
 ```
 
-**Rôle** : Récupérer les informations sur la mémoire PSRAM de l'ESP32-S3.
+**Role**: Retrieve information about ESP32-S3's PSRAM memory.
 
-**Fonctionnalités** :
-- `getPsramInfo()` : Retourne une structure avec toutes les infos PSRAM
+**Features**:
+- `getPsramInfo()`: Returns a structure with all PSRAM info
 
-**Pourquoi un module ?** C'est une fonctionnalité autonome qui peut être utilisée partout.
+**Why a module?** It's an autonomous feature that can be used anywhere.
 
 ---
 
-### 📁 utils/ (utilitaires)
+### 📁 utils/ (Utilities)
 
-Les **utilitaires** sont des fichiers qui fournissent des **constantes**, **types**, ou **fonctions helpers** utilisés partout dans le projet.
+**Utilities** are files that provide **constants**, **types**, or **helper functions** used throughout the project.
 
 #### config_constants.h
 
-**Rôle** : Définit des constantes de configuration à partir des valeurs compilées.
+**Role**: Defines configuration constants from compiled values.
 
-**Contenu** :
+**Content**:
 ```cpp
 namespace ConfigConstants {
     constexpr std::string_view PROJECT_NAME    = PROJECT_NAME;
@@ -147,50 +150,50 @@ namespace ConfigConstants {
 }
 ```
 
-**Pourquoi ?** Les valeurs `PROJECT_NAME` et `PROJECT_VERSION` sont définies dans `platformio.ini` et injectées à la compilation. Ce fichier les rend accessibles facilement.
+**Why?** The values `PROJECT_NAME` and `PROJECT_VERSION` are defined in `platformio.ini` and injected at compile time. This file makes them easily accessible.
 
 #### config_state.h
 
-**Rôle** : Stocker l'état de la configuration à l'exécution.
+**Role**: Store runtime configuration state.
 
-**Contenu** :
-- Adresse IP attribuée
-- SSID du WiFi connecté
+**Content**:
+- Assigned IP address
+- Connected WiFi SSID
 
-**Pattern utilisé** : **Singleton** (une seule instance accessible partout)
+**Pattern used**: **Singleton** (single instance accessible everywhere)
 
-**Pourquoi ?** Plusieurs parties du programme ont besoin de connaître l'IP et le SSID. Au lieu de les passer en paramètre partout, on utilise un état global.
+**Why?** Multiple parts of the program need to know the IP and SSID. Instead of passing them as parameters everywhere, we use a global state.
 
 #### project_info.h
 
-**Rôle** : Fournir accès au nom et à la version du projet.
+**Role**: Provide access to project name and version.
 
-**Pourquoi un fichier séparé ?** Centralisation : si vous voulez afficher la version, vous incluez ce fichier. C'est simple et clair.
+**Why a separate file?** Centralization: if you want to display the version, you include this file. It's simple and clear.
 
 ---
 
-## 🔧 Le dossier `include/` (configuration)
+## 🔧 The `include/` Folder (Configuration)
 
 ### board_config.h
 
-**Rôle** : Définit **toutes les broches GPIO** et paramètres matériels.
+**Role**: Defines **all GPIO pins** and hardware parameters.
 
-**Contenu** :
+**Content**:
 ```cpp
 #define OLED_SDA_PIN  15
 #define OLED_SCL_PIN  16
 #define NEOPIXEL_PIN  48
 ```
 
-**Pourquoi séparer ?** Si vous changez de carte ou de câblage, vous modifiez **uniquement ce fichier**. Le reste du code n'a pas besoin de changer.
+**Why separate?** If you change boards or wiring, you only modify **this file**. The rest of the code doesn't need to change.
 
-**RÈGLE IMPORTANTE** : Ne jamais modifier ce fichier sans raison valide !
+**IMPORTANT RULE**: Never modify this file without a valid reason!
 
 ### config.h
 
-**Rôle** : Configuration logicielle (timeouts, délais, etc.).
+**Role**: Software configuration (timeouts, delays, etc.).
 
-**Contenu** :
+**Content**:
 ```cpp
 namespace Config {
     constexpr uint32_t WIFI_CONNECT_TIMEOUT_MS = 20000;
@@ -198,34 +201,34 @@ namespace Config {
 }
 ```
 
-**Pourquoi séparer ?** Tous les paramètres de comportement sont centralisés. Facile à ajuster sans chercher dans tout le code.
+**Why separate?** All behavior parameters are centralized. Easy to adjust without searching through all the code.
 
 ### secrets.h
 
-**Rôle** : Contient les **identifiants sensibles** (SSID WiFi, mot de passe).
+**Role**: Contains **sensitive credentials** (WiFi SSID, password).
 
-**ATTENTION** : Ce fichier ne doit **JAMAIS** être partagé ou poussé sur GitHub !
+**WARNING**: This file must **NEVER** be shared or pushed to GitHub!
 
 ---
 
-## 📦 Le dossier `data/` (système de fichiers)
+## 📦 The `data/` Folder (Filesystem)
 
-**Rôle** : Contient les fichiers web (HTML, CSS, JS) qui seront **uploadés** dans la mémoire flash de l'ESP32 (système de fichiers LittleFS).
+**Role**: Contains web files (HTML, CSS, JS) that will be **uploaded** to the ESP32's flash memory (LittleFS filesystem).
 
-**Fonctionnement** :
-1. Les fichiers sont uploadés avec le script `auto_fs.py` ou via PlatformIO
-2. L'ESP32 les lit depuis sa mémoire flash
-3. Le serveur web les sert aux clients HTTP
+**How it works**:
+1. Files are uploaded with `auto_fs.py` script or via PlatformIO
+2. ESP32 reads them from its flash memory
+3. Web server serves them to HTTP clients
 
-**Pourquoi ?** L'ESP32 n'a pas de disque dur. On stocke les fichiers dans une partie de sa mémoire flash.
+**Why?** ESP32 doesn't have a hard drive. We store files in part of its flash memory.
 
 ---
 
 ## ⚙️ platformio.ini
 
-**Rôle** : Fichier de configuration de PlatformIO (l'environnement de développement).
+**Role**: PlatformIO configuration file (development environment).
 
-**Contenu important** :
+**Important content**:
 ```ini
 [env:esp32-s3-devkitc-1]
 platform = espressif32
@@ -237,49 +240,49 @@ build_flags =
     -D PROJECT_VERSION='"1.0.0"'
 ```
 
-- **build_flags** : Définit des constantes disponibles dans le code C++
-- Les bibliothèques nécessaires y sont listées
+- **build_flags**: Defines constants available in C++ code
+- Required libraries are listed here
 
-**Pourquoi ici ?** Centraliser la version et le nom permet de les changer facilement pour tous les fichiers du projet.
+**Why here?** Centralizing version and name makes them easy to change for all project files.
 
 ---
 
-## 🔗 Comment tout est relié
+## 🔗 How Everything is Connected
 
 ```
 main.cpp
   │
-  ├─ Include board_config.h ──────────► Définitions GPIO
-  ├─ Include config.h ────────────────► Timeouts, paramètres
+  ├─ Include board_config.h ──────────► GPIO definitions
+  ├─ Include config.h ────────────────► Timeouts, parameters
   │
-  ├─ Créer NeoPixelStatus pixel ─────► Module LED
-  ├─ Créer OledDisplay oled ─────────► Module écran
+  ├─ Create NeoPixelStatus pixel ─────► LED module
+  ├─ Create OledDisplay oled ─────────► Screen module
   │
-  ├─ Créer WifiManager
-  │    └─ Utilise pixel + oled ──────► Manager = orchestrateur
+  ├─ Create WifiManager
+  │    └─ Uses pixel + oled ──────────► Manager = orchestrator
   │
-  ├─ Appeler getPsramInfo() ─────────► Module info PSRAM
+  ├─ Call getPsramInfo() ─────────────► PSRAM info module
   │
-  └─ Utiliser ConfigState::instance()► État global
+  └─ Use ConfigState::instance() ─────► Global state
 ```
 
 ---
 
-## 🎓 Résumé : Pourquoi cette organisation ?
+## 🎓 Summary: Why This Organization?
 
-| Type | Rôle | Exemples |
+| Type | Role | Examples |
 |------|------|----------|
-| **Modules** | Contrôler un élément matériel | LED, écran OLED, PSRAM |
-| **Managers** | Orchestrer plusieurs modules | WiFi (utilise LED + écran) |
-| **Utils** | Fournir des outils réutilisables | Constantes, état global |
-| **Include** | Configuration matérielle/logicielle | GPIO, timeouts, secrets |
+| **Modules** | Control a hardware element | LED, OLED screen, PSRAM |
+| **Managers** | Orchestrate multiple modules | WiFi (uses LED + screen) |
+| **Utils** | Provide reusable tools | Constants, global state |
+| **Include** | Hardware/software configuration | GPIO, timeouts, secrets |
 
-**Avantages** :
-- ✅ Chaque fichier a une responsabilité claire
-- ✅ Facile à tester et déboguer
-- ✅ Réutilisable dans d'autres projets
-- ✅ Modification d'un module n'affecte pas les autres
+**Advantages**:
+- ✅ Each file has a clear responsibility
+- ✅ Easy to test and debug
+- ✅ Reusable in other projects
+- ✅ Modifying one module doesn't affect others
 
 ---
 
-**Prochaine étape** : Lisez `02_modules_et_leur_role.md` pour comprendre en détail chaque module.
+**Next step**: Read `02_modules_et_leur_role_en.md` to understand each module in detail.

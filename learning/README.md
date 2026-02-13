@@ -1,253 +1,242 @@
-# 📚 Guide complet du projet ESP32 - Index
+# 📚 Complete ESP32 Project Guide - Index
 
-## 🎯 Bienvenue !
+## 🎯 Welcome!
 
-Cette documentation didactique vous explique **en détail** la structure et le fonctionnement de ce projet ESP32, comme si vous n'aviez jamais fait de C++.
+This educational documentation explains **in detail** the structure and operation of this ESP32 project, as if you've never coded in C++.
 
 ---
 
-## 📖 Comment lire cette documentation ?
+## 📖 How to Read This Documentation?
 
-### 🚀 Parcours débutant (recommandé)
+### 🚀 Beginner Path (Recommended)
 
-Si vous découvrez le C++ et les projets embarqués, suivez cet ordre :
+If you're discovering C++ and embedded projects, follow this order:
 
 1. **[00_introduction_cpp.md](./00_introduction_cpp.md)**
-   - Qu'est-ce que le C++ ?
-   - Pourquoi l'utiliser pour l'ESP32 ?
-   - Concepts de base (fichiers .h, .cpp, includes, classes)
-   - Le cycle de vie d'un programme ESP32 (`setup()` et `loop()`)
+   - What is C++?
+   - Why use it for ESP32?
+   - Basic concepts (.h, .cpp files, includes, classes)
+   - ESP32 program lifecycle (`setup()` and `loop()`)
 
 2. **[01_structure_du_projet.md](./01_structure_du_projet.md)**
-   - Organisation des dossiers (`src/`, `include/`, `data/`, etc.)
-   - Rôle de chaque dossier
-   - Différence entre modules, managers et utils
-   - Pourquoi cette organisation ?
+   - Folder organization (`src/`, `include/`, `data/`, etc.)
+   - Role of each folder
+   - Difference between modules, managers, and utils
+   - Why this organization?
 
 3. **[03_concepts_cpp.md](./03_concepts_cpp.md)**
-   - Classes et objets
-   - Références (`&`) et pointeurs (`*`)
+   - Classes and objects
+   - References (`&`) and pointers (`*`)
    - Namespaces
-   - Constantes (`const`, `constexpr`)
-   - Énumérations (`enum class`)
+   - Constants (`const`, `constexpr`)
+   - Enumerations (`enum class`)
    - Structures (`struct`)
    - Singleton pattern
-   - Et bien plus !
+   - And much more!
 
 4. **[02_modules_et_leur_role.md](./02_modules_et_leur_role.md)**
-   - NeoPixelStatus (LED RGB)
-   - OledDisplay (écran OLED)
-   - PsramInfo (mémoire PSRAM)
-   - WifiManager (connexion WiFi)
-   - Explication ligne par ligne du code de chaque module
+   - NeoPixelStatus (RGB LED)
+   - OledDisplay (OLED screen)
+   - PsramInfo (PSRAM memory)
+   - WifiManager (WiFi connection)
+   - Line-by-line code explanation for each module
 
 5. **[04_main_explique.md](./04_main_explique.md)**
-   - Analyse complète de `main.cpp`
-   - Explication ligne par ligne de `setup()` et `loop()`
-   - Comment les modules sont utilisés ensemble
-   - Construction du JSON pour l'API
+   - Complete analysis of `main.cpp`
+   - Line-by-line explanation of `setup()` and `loop()`
+   - How modules are used together
+   - JSON building for the API
 
 6. **[05_configuration.md](./05_configuration.md)**
-   - `board_config.h` (GPIO et matériel)
-   - `config.h` (timeouts et paramètres logiciels)
-   - `secrets.h` (identifiants WiFi)
-   - `config_constants.h` et `config_state.h`
-   - Bonnes pratiques de configuration
+   - `board_config.h` (GPIO and hardware)
+   - `config.h` (timeouts and software parameters)
+   - `secrets.h` (WiFi credentials)
+   - `config_constants.h` and `config_state.h`
+   - Configuration best practices
 
 ---
 
-### ⚡ Parcours expérimenté (accès rapide)
+### ⚡ Experienced Path (Quick Access)
 
-Si vous connaissez déjà le C++ et cherchez une information spécifique :
+If you already know C++ and are looking for specific information:
 
-| Je veux comprendre... | Lire ce fichier |
-|-----------------------|-----------------|
-| L'organisation globale | [01_structure_du_projet.md](./01_structure_du_projet.md) |
-| Un module spécifique | [02_modules_et_leur_role.md](./02_modules_et_leur_role.md) |
-| Le fichier main.cpp | [04_main_explique.md](./04_main_explique.md) |
-| Les fichiers de config | [05_configuration.md](./05_configuration.md) |
-| Un concept C++ précis | [03_concepts_cpp.md](./03_concepts_cpp.md) |
+| I want to understand... | Read this file |
+|------------------------|----------------|
+| Overall organization | [01_structure_du_projet.md](./01_structure_du_projet.md) |
+| A specific module | [02_modules_et_leur_role.md](./02_modules_et_leur_role.md) |
+| The main.cpp file | [04_main_explique.md](./04_main_explique.md) |
+| Config files | [05_configuration.md](./05_configuration.md) |
+| A specific C++ concept | [03_concepts_cpp.md](./03_concepts_cpp.md) |
 
 ---
 
-### 🔍 Recherche par thème
+### 🔍 Search by Theme
 
-#### 📦 Architecture et organisation
-- Structure des dossiers → [01_structure_du_projet.md](./01_structure_du_projet.md)
-- Différence modules/managers/utils → [01_structure_du_projet.md](./01_structure_du_projet.md#-le-dossier-src-code-source)
+#### 📦 Architecture and Organization
+- Folder structure → [01_structure_du_projet.md](./01_structure_du_projet.md)
+- Modules/managers/utils difference → [01_structure_du_projet.md](./01_structure_du_projet.md)
 
-#### 🧩 Modules matériels
-- LED NeoPixel → [02_modules_et_leur_role.md](./02_modules_et_leur_role.md#-module--neopixelstatus)
-- Écran OLED → [02_modules_et_leur_role.md](./02_modules_et_leur_role.md#%EF%B8%8F-module--oleddisplay)
-- Mémoire PSRAM → [02_modules_et_leur_role.md](./02_modules_et_leur_role.md#-module--psraminfo)
-- Connexion WiFi → [02_modules_et_leur_role.md](./02_modules_et_leur_role.md#-manager--wifimanager)
+#### 🧩 Hardware Modules
+- NeoPixel LED → [02_modules_et_leur_role.md](./02_modules_et_leur_role.md)
+- OLED Screen → [02_modules_et_leur_role.md](./02_modules_et_leur_role.md)
+- PSRAM Memory → [02_modules_et_leur_role.md](./02_modules_et_leur_role.md)
+- WiFi Connection → [02_modules_et_leur_role.md](./02_modules_et_leur_role.md)
 
-#### 💻 Concepts C++
-- Classes et objets → [03_concepts_cpp.md](./03_concepts_cpp.md#1%EF%B8%8F⃣-classes-et-objets)
-- Références et pointeurs → [03_concepts_cpp.md](./03_concepts_cpp.md#2%EF%B8%8F⃣-références-et-pointeurs)
-- Namespaces → [03_concepts_cpp.md](./03_concepts_cpp.md#3%EF%B8%8F⃣-namespaces)
-- Énumérations → [03_concepts_cpp.md](./03_concepts_cpp.md#5%EF%B8%8F⃣-enum-et-enum-class)
-- Singleton → [03_concepts_cpp.md](./03_concepts_cpp.md#9%EF%B8%8F⃣-singleton-pattern)
+#### 💻 C++ Concepts
+- Classes and objects → [03_concepts_cpp.md](./03_concepts_cpp.md)
+- References and pointers → [03_concepts_cpp.md](./03_concepts_cpp.md)
+- Namespaces → [03_concepts_cpp.md](./03_concepts_cpp.md)
+- Enumerations → [03_concepts_cpp.md](./03_concepts_cpp.md)
+- Singleton → [03_concepts_cpp.md](./03_concepts_cpp.md)
 
 #### ⚙️ Configuration
-- GPIO et broches → [05_configuration.md](./05_configuration.md#1%EF%B8%8F⃣-board_configh-configuration-matérielle)
-- Timeouts et délais → [05_configuration.md](./05_configuration.md#2%EF%B8%8F⃣-configh-configuration-logicielle)
-- Identifiants WiFi → [05_configuration.md](./05_configuration.md#3%EF%B8%8F⃣-secretsh-identifiants-sensibles)
-- Nom et version → [05_configuration.md](./05_configuration.md#4%EF%B8%8F⃣-config_constantsh-constantes-dérivées)
+- GPIO and pins → [05_configuration.md](./05_configuration.md)
+- Timeouts and delays → [05_configuration.md](./05_configuration.md)
+- WiFi credentials → [05_configuration.md](./05_configuration.md)
+- Name and version → [05_configuration.md](./05_configuration.md)
 
-#### 🔧 Code principal
-- Fonction setup() → [04_main_explique.md](./04_main_explique.md#4%EF%B8%8F⃣-fonction--setup)
-- Fonction loop() → [04_main_explique.md](./04_main_explique.md#5%EF%B8%8F⃣-fonction--loop)
-- Construction du JSON → [04_main_explique.md](./04_main_explique.md#3%EF%B8%8F⃣-fonction--buildinfojson)
-- Serveur web → [04_main_explique.md](./04_main_explique.md#-configuration-du-serveur-web)
-
----
-
-## 📋 Liste complète des documents
-
-| # | Fichier | Description |
-|---|---------|-------------|
-| 0 | [00_introduction_cpp.md](./00_introduction_cpp.md) | Introduction au C++ et au projet |
-| 1 | [01_structure_du_projet.md](./01_structure_du_projet.md) | Organisation des dossiers et fichiers |
-| 2 | [02_modules_et_leur_role.md](./02_modules_et_leur_role.md) | Détail de chaque module (LED, écran, WiFi, etc.) |
-| 3 | [03_concepts_cpp.md](./03_concepts_cpp.md) | Concepts C++ utilisés (classes, références, etc.) |
-| 4 | [04_main_explique.md](./04_main_explique.md) | Analyse ligne par ligne de main.cpp |
-| 5 | [05_configuration.md](./05_configuration.md) | Fichiers de configuration détaillés |
+#### 🔧 Main Code
+- setup() function → [04_main_explique.md](./04_main_explique.md)
+- loop() function → [04_main_explique.md](./04_main_explique.md)
+- JSON building → [04_main_explique.md](./04_main_explique.md)
+- Web server → [04_main_explique.md](./04_main_explique.md)
 
 ---
 
-## 🎓 Approche pédagogique
+## 📋 Complete Document List
 
-### 🧠 Méthode d'apprentissage
-
-Cette documentation suit une **approche progressive** :
-
-1. **Concepts généraux** → **Détails spécifiques**
-2. **Théorie simple** → **Code pratique**
-3. **Analogies du quotidien** → **Code technique**
-
-### 📝 Formats utilisés
-
-- **🎯 Rôle** : à quoi sert le concept/module
-- **📖 Explication** : comment ça fonctionne
-- **💡 Pourquoi** : justification des choix techniques
-- **✅ Avantages** : bénéfices de cette approche
-- **🆚 Comparaison** : différences avec d'autres méthodes
-- **Analogies** : exemples du quotidien pour faciliter la compréhension
-
-### 🔍 Code commenté
-
-Tous les extraits de code sont :
-- ✅ Complets (pas de `...` ou de code omis)
-- ✅ Commentés ligne par ligne si nécessaire
-- ✅ Expliqués en français simple
-- ✅ Accompagnés d'exemples d'utilisation
+| # | File | Description |
+|---|------|-------------|
+| 0 | [00_introduction_cpp.md](./00_introduction_cpp.md) | Introduction to C++ and the project |
+| 1 | [01_structure_du_projet.md](./01_structure_du_projet.md) | Folder and file organization |
+| 2 | [02_modules_et_leur_role.md](./02_modules_et_leur_role.md) | Detail of each module (LED, screen, WiFi, etc.) |
+| 3 | [03_concepts_cpp.md](./03_concepts_cpp.md) | C++ concepts used (classes, references, etc.) |
+| 4 | [04_main_explique.md](./04_main_explique.md) | Line-by-line analysis of main.cpp |
+| 5 | [05_configuration.md](./05_configuration.md) | Detailed configuration files |
 
 ---
 
-## 🛠️ Comment utiliser cette documentation
+## 🎓 Pedagogical Approach
 
-### Pour apprendre le projet
+### 🧠 Learning Method
 
-1. Lire dans l'ordre (00 → 05)
-2. Tester les concepts dans le code réel
-3. Modifier les valeurs pour voir l'effet
-4. Expérimenter avec vos propres modules
+This documentation follows a **progressive approach**:
 
-### Pour résoudre un problème
+1. **General concepts** → **Specific details**
+2. **Simple theory** → **Practical code**
+3. **Everyday analogies** → **Technical code**
 
-1. Identifier le composant concerné (LED, écran, WiFi, etc.)
-2. Consulter le document correspondant (voir tableau ci-dessus)
-3. Lire la section spécifique
-4. Vérifier les fichiers de configuration
+### 📝 Formats Used
 
-### Pour ajouter une fonctionnalité
+- **🎯 Role**: what the concept/module does
+- **📖 Explanation**: how it works
+- **💡 Why**: justification of technical choices
+- **✅ Advantages**: benefits of this approach
+- **🆚 Comparison**: differences with other methods
+- **Analogies**: everyday examples for easier understanding
 
-1. Comprendre l'architecture → [01_structure_du_projet.md](./01_structure_du_projet.md)
-2. Identifier où placer le code (module/manager/utils)
-3. S'inspirer des modules existants → [02_modules_et_leur_role.md](./02_modules_et_leur_role.md)
-4. Suivre les conventions du projet
+### 🔍 Commented Code
+
+All code snippets are:
+- ✅ Complete (no `...` or omitted code)
+- ✅ Commented line by line if necessary
+- ✅ Explained in simple English
+- ✅ Accompanied by usage examples
 
 ---
 
-## 🔗 Liens avec le code source
+## 🛠️ How to Use This Documentation
 
-Chaque document fait référence aux **fichiers réels** du projet :
+### To Learn the Project
+
+1. Read in order (00 → 05)
+2. Test concepts in the real code
+3. Modify values to see the effect
+4. Experiment with your own modules
+
+### To Solve a Problem
+
+1. Identify the concerned component (LED, screen, WiFi, etc.)
+2. Consult the corresponding document (see table above)
+3. Read the specific section
+4. Check configuration files
+
+### To Add a Feature
+
+1. Understand the architecture → [01_structure_du_projet.md](./01_structure_du_projet.md)
+2. Identify where to place the code (module/manager/utils)
+3. Get inspired by existing modules → [02_modules_et_leur_role.md](./02_modules_et_leur_role.md)
+4. Follow project conventions
+
+---
+
+## 🔗 Links with Source Code
+
+Each document refers to **real files** in the project:
 
 ```
-Documentation didactique      ←→  Code source
+Educational Documentation    ←→  Source Code
 ─────────────────────────────────────────────────
-00_introduction_cpp.md        ←→  (concepts généraux)
-01_structure_du_projet.md     ←→  (tous les dossiers)
-02_modules_et_leur_role.md    ←→  src/modules/*, src/managers/*
-03_concepts_cpp.md            ←→  (patterns utilisés partout)
-04_main_explique.md           ←→  src/main.cpp
-05_configuration.md           ←→  include/*.h, src/utils/*
+00_introduction_cpp.md    ←→  (general concepts)
+01_structure_du_projet.md ←→  (all folders)
+02_modules_et_leur_role.md ←→  src/modules/*, src/managers/*
+03_concepts_cpp.md        ←→ (patterns used everywhere)
+04_main_explique.md       ←→  src/main.cpp
+05_configuration.md       ←→  include/*.h, src/utils/*
 ```
 
-**Conseil** : Ouvrez les fichiers sources à côté de la documentation pour suivre les explications.
+**Tip**: Open source files alongside the documentation to follow explanations.
 
 ---
 
-## � À qui s’adresse cette documentation ?
+## 👥 Who is This Documentation For?
 
-Cette documentation est conçue pour :
-- ✅ **Débutants en C++** qui veulent comprendre un projet embarqué complet
-- ✅ **Développeurs expérimentés** souhaitant saisir rapidement l'architecture du projet
-- ✅ **Étudiants** apprenant la programmation ESP32 et les microcontrôleurs
-- ✅ **Contributeurs** voulant comprendre le projet avant d'y apporter des modifications
+This documentation is designed for:
+- ✅ **C++ beginners** who want to understand a complete embedded project
+- ✅ **Experienced developers** wanting to quickly grasp the project architecture
+- ✅ **Students** learning ESP32 and microcontroller programming
+- ✅ **Contributors** wanting to understand the project before making modifications
 
-### 🎯 Objectifs pédagogiques
+### 🎯 Learning Objectives
 
-Après avoir lu cette documentation, vous serez capable de :
-- ✅ **Comprendre** la structure et l'organisation du projet
-- ✅ **Identifier** le rôle de chaque module et composant
-- ✅ **Maîtriser** les concepts C++ utilisés dans le projet
-- ✅ **Modifier** le code en toute confiance
-- ✅ **Étendre** le projet avec vos propres modules
-- ✅ **Déboguer** efficacement
-- ✅ **Réutiliser** ces concepts dans vos propres projets ESP32
+After reading this documentation, you will be able to:
+- ✅ **Understand** the project structure and organization
+- ✅ **Identify** the role of each module and component
+- ✅ **Master** C++ concepts used in the project
+- ✅ **Modify** the code confidently
+- ✅ **Extend** the project with your own modules
+- ✅ **Debug** effectively
+- ✅ **Reuse** these concepts in your own ESP32 projects
 
-------
+---
 
-## 📚 Ressources complémentaires
+## 📚 Additional Resources
 
-### C++ pour débutants
-- [cppreference.com](https://en.cppreference.com/) - Référence complète du C++
-- [learncpp.com](https://www.learncpp.com/) - Tutoriels C++ détaillés
+### C++ for Beginners
+- [cppreference.com](https://en.cppreference.com/) - Complete C++ reference
+- [learncpp.com](https://www.learncpp.com/) - Detailed C++ tutorials
 
 ### ESP32
-- [Documentation Espressif](https://docs.espressif.com/projects/esp-idf/en/latest/) - Documentation officielle
-- [ESP32 Arduino Core](https://github.com/espressif/arduino-esp32) - Framework Arduino pour ESP32
+- [Espressif Documentation](https://docs.espressif.com/projects/esp-idf/en/latest/) - Official documentation
+- [ESP32 Arduino Core](https://github.com/espressif/arduino-esp32) - Arduino framework for ESP32
 
 ### PlatformIO
-- [Documentation PlatformIO](https://docs.platformio.org/) - Guide complet
-- [PlatformIO Registry](https://registry.platformio.org/) - Bibliothèques disponibles
+- [PlatformIO Documentation](https://docs.platformio.org/) - Complete guide
+- [PlatformIO Registry](https://registry.platformio.org/) - Available libraries
 
 ---
 
-## 🎯 Objectif de cette documentation
+## 📞 Need Help?
 
-Vous permettre de :
-- ✅ **Comprendre** parfaitement le projet
-- ✅ **Modifier** le code en toute confiance
-- ✅ **Déboguer** efficacement
-- ✅ **Étendre** le projet avec vos propres modules
-- ✅ **Réutiliser** les concepts dans d'autres projets
+If after reading the documentation you still have questions:
 
----
-
-## 📞 Besoin d'aide ?
-
-Si après avoir lu la documentation, vous avez encore des questions :
-
-1. **Relire** la section concernée (parfois une relecture éclaire)
-2. **Expérimenter** dans le code (modifier, compiler, observer)
-3. **Comparer** avec les exemples fournis
-4. **Chercher** dans les ressources complémentaires
+1. **Reread** the relevant section (sometimes rereading clarifies)
+2. **Experiment** in the code (modify, compile, observe)
+3. **Compare** with provided examples
+4. **Search** in additional resources
 
 ---
 
-**Bonne lecture et bon apprentissage ! 🚀**
+**Happy reading and learning! 🚀**
 
-*Cette documentation a été créée pour vous aider à maîtriser ce projet ESP32 et les concepts C++ associés. Prenez votre temps, expérimentez, et amusez-vous !*
+*This documentation was created to help you master this ESP32 project and associated C++ concepts. Take your time, experiment, and have fun!*
